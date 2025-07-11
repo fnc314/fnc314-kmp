@@ -6,19 +6,19 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.foundation.layout.safeGesturesPadding
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.fnc314.kmp.composeapp.generated.resources.Res
 import com.fnc314.kmp.composeapp.generated.resources.compose_multiplatform
 import com.fnc314.kmp.designsystem.widgets.tile.post.PostTile
@@ -85,23 +85,6 @@ fun App() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            posts.onEachIndexed { index, model ->
-                PostTile(
-                    post = model
-                ) { reaction ->
-                    val reactions = buildMap {
-                        putAll(posts[index].reactions)
-                        if (posts[index].reactions.containsKey(reaction)) {
-                            put(reaction, posts[index].reactions[reaction]!! + 1)
-                        } else {
-                            put(reaction, 1)
-                        }
-                    }
-                    posts[index] = posts[index].copy(
-                        reactions = reactions
-                    )
-                }
-            }
             Button(
                 onClick = { showContent = !showContent }
             ) {
@@ -117,9 +100,32 @@ fun App() {
                 }
             }
             AnimatedVisibility(
-                visible = !showContent
+                visible = !showContent,
+                modifier = Modifier.fillMaxHeight()
             ) {
-                PostsListScreen()
+                Column(
+                    modifier = Modifier.fillMaxHeight(),
+                    verticalArrangement = Arrangement.SpaceEvenly,
+                ) {
+                    PostsListScreen()
+                    posts.onEachIndexed { index, model ->
+                        PostTile(
+                            post = model
+                        ) { reaction ->
+                            val reactions = buildMap {
+                                putAll(posts[index].reactions)
+                                if (posts[index].reactions.containsKey(reaction)) {
+                                    put(reaction, posts[index].reactions[reaction]!! + 1)
+                                } else {
+                                    put(reaction, 1)
+                                }
+                            }
+                            posts[index] = posts[index].copy(
+                                reactions = reactions
+                            )
+                        }
+                    }
+                }
             }
         }
     }

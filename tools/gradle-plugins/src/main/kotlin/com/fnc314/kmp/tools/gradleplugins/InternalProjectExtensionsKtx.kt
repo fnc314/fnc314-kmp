@@ -3,7 +3,6 @@ package com.fnc314.kmp.tools.gradleplugins
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.internal.serialize.codecs.core.NodeOwner
 
 /**
  * Finds the [VersionCatalog] with the provided [name], defaulting to `"libs"`
