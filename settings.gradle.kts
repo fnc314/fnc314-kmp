@@ -2,6 +2,15 @@
 
 import org.gradle.kotlin.dsl.support.listFilesOrdered
 
+/**
+ * Performs iterative checks against receiving [File] ensuring [File.isDirectory] and
+ *   that the [File.name] *does not* start with `"_"` or `"."`
+ * @receiver A [File] instance
+ * @return `true` if [File] is eligible for [Settings.include]
+ */
+private fun File.isEligibleForGradleInclusion(): Boolean =
+    isDirectory and (name.first().toString() !in listOf("_", "."))
+
 pluginManagement {
     includeBuild("tools")
     plugins {
@@ -48,19 +57,17 @@ listOf(
 ).onEach { dir ->
     when (dir) {
         "features" -> file(dir)
-            .listFilesOrdered { it.isDirectory }
+            .listFilesOrdered { it.isEligibleForGradleInclusion() }
             .onEach { featureDir ->
                 file(featureDir)
-                    .listFilesOrdered { it.isDirectory }
+                    .listFilesOrdered { it.isEligibleForGradleInclusion() }
                     .onEach { featureSubDir ->
                         include(":$dir:${featureDir.name}:${featureSubDir.name}")
                     }
             }
 
         else -> file(dir)
-            .listFilesOrdered { file ->
-                file.isDirectory and (file.name.first().toString() !in listOf("_", "."))
-            }
+            .listFilesOrdered { it.isEligibleForGradleInclusion() }
             .onEach { subProj ->
                 include(":$dir:${subProj.name}")
             }
