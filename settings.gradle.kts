@@ -3,11 +3,12 @@
 import org.gradle.kotlin.dsl.support.listFilesOrdered
 
 pluginManagement {
+    includeBuild("tools")
     plugins {
-        id("com.android.settings") version("8.11.0")
-        id("com.android.library") version("8.11.0")
-        id("com.android.application") version("8.11.0")
-        id("com.android.kotlin.multiplatform.library") version("8.11.0")
+        id("com.android.settings") version("8.11.1")
+        id("com.android.library") version("8.11.1")
+        id("com.android.application") version("8.11.1")
+        id("com.android.kotlin.multiplatform.library") version("8.11.1")
         id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
         id("org.jetbrains.compose.hot-reload") version("1.0.0-alpha10")
         id("org.jetbrains.compose") version("1.8.2")
@@ -29,7 +30,7 @@ pluginManagement {
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-    id("com.android.settings") version "8.11.0"
+    id("com.android.settings") version "8.11.1"
 }
 
 android {
@@ -42,14 +43,27 @@ android {
 listOf(
     "components",
     "design-system",
+    "features",
 ).onEach { dir ->
-    file(dir)
-        .listFilesOrdered { file ->
-            file.isDirectory and file.name.startsWith("_").not() and file.name.startsWith(".").not()
-        }
-        .onEach { subProj ->
-            include(":$dir:${subProj.name}")
-        }
+    when (dir) {
+        "features" -> file(dir)
+            .listFilesOrdered { it.isDirectory }
+            .onEach { featureDir ->
+                file(featureDir)
+                    .listFilesOrdered { it.isDirectory }
+                    .onEach { featureSubDir ->
+                        include(":$dir:${featureDir.name}:${featureSubDir.name}")
+                    }
+            }
+
+        else -> file(dir)
+            .listFilesOrdered { file ->
+                file.isDirectory and (file.name.first().toString() !in listOf("_", "."))
+            }
+            .onEach { subProj ->
+                include(":$dir:${subProj.name}")
+            }
+    }
 }
 
 include(":composeApp")

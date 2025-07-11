@@ -10,7 +10,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
-    alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.kotlin.plugin.serialization)
 }
 
 kotlin {
@@ -26,7 +26,7 @@ kotlin {
             )
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -37,12 +37,12 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     jvm(name = "desktop")
-    
+
     sourceSets {
         val desktopMain by getting
-        
+
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
@@ -51,6 +51,7 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(projects.components.navigation)
             implementation(projects.designSystem.widgets)
+            implementation(projects.features.posts.list)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)

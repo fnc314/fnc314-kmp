@@ -1,5 +1,6 @@
 [versions]
-    agp = "8.11.0"
+    agp = "8.11.1"
+    agp-lint = "31.11.1"
     android-compileSdk = "36"
     android-minSdk = "24"
     android-targetSdk = "36"
@@ -21,10 +22,45 @@
     kotlin = "2.2.0"
     kotlinx-coroutines = "1.10.2"
     kotlinx-serialization-json = "1.9.0"
+    ktor = "3.2.1"
+    koin = "4.1.0"
 
 [libraries]
+    agp-api = { module = "com.android.tools.build:gradle-api", version.ref = "agp" }
+    agp-lint = { module = "com.android.tools.build:gradle-lint-api", version.ref = "agp-lint" }
+    agp-settings-api = { module = "com.android.tools.build:gradle-settings-api", version.ref = "agp" }
+    koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
+    koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+    koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+    koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+    koin-androidx-compose-navigation = { module = "io.insert-koin:koin-androidx-compose-navigation", version.ref = "koin" }
+    koin-androidx-workmanager = { module = "io.insert-koin:koin-androidx-workmanager", version.ref = "koin" }
+    koin-androidx-workmanager-compose = { module = "io.insert-koin:koin-androidx-workmanager-compose", version.ref = "koin" }
+    koin-androidx-navigation = { module = "io.insert-koin:koin-androidx-navigation", version.ref = "koin" }
+    koin-androidx-navigation-compose = { module = "io.insert-koin:koin-androidx-navigation-compose", version.ref = "koin" }
+    koin-androidx-lifecycle = { module = "io.insert-koin:koin-androidx-lifecycle", version.ref = "koin" }
+    koin-androidx-viewmodel = { module = "io.insert-koin:koin-androidx-viewmodel", version.ref = "koin" }
+    koin-androidx-viewmodel-compose = { module = "io.insert-koin:koin-androidx-viewmodel-compose", version.ref = "koin" }
+    koin-ios = { module = "io.insert-koin:koin-ios", version.ref = "koin" }
+    koin-js = { module = "io.insert-koin:koin-js", version.ref = "koin" }
+    koin-core-ext = { module = "io.insert-koin:koin-core-ext", version.ref = "koin" }
+    koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
+    koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin" }
+    # koin-test-junit5 = { module = "io.insert-koin:koin-test-junit5", version.ref = "koin" }
+    kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
     kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
     kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+    # Ktor Client - Core
+    ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+    # Ktor Client Engines (add the ones you need for your targets)
+    ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" } # For JVM, Android
+    ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" } # For iOS, macOS, watchOS, tvOS
+    ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" } # For Javascript (Browser and Node.js)
+    # ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" } # Alternative for Android/JVM
+    # ktor-client-java = { module = "io.ktor:ktor-client-java", version.ref = "ktor" } # Alternative for JVM
+    # Ktor Client Content Negotiation & Serialization
+    ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+    ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
     junit = { module = "junit:junit", version.ref = "junit" }
     androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
     androidx-testExt-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-testExt" }
@@ -54,6 +90,22 @@
         "androidx-compose-material3-adaptive-layout",
         "androidx-compose-material3-adaptive-navigation",
     ]
+    ktor-client-jvm = [
+        "ktor-client-core",
+        "ktor-client-cio", # For JVM, Android
+        "ktor-client-content-negotiation",
+        "ktor-serialization-kotlinx-json",
+    ]
+    ktor-client-ios = [
+        "ktor-client-core",
+        "ktor-client-darwin", # For iOS, macOS, watchOS, tvOS
+        "ktor-client-content-negotiation",
+    ]
+    ktor-client-web = [
+        "ktor-client-core",
+        "ktor-client-js", # For Javascript (Browser and Node.js)
+        "ktor-client-content-negotiation"
+    ]
 
 [plugins]
     androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -62,5 +114,7 @@
     composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload" }
     composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
     composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+    kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
     kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-    kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+    kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+    tools-gradle-plugins-kmp-feature = { id = "com.fnc314.kmp.tools.gradle.plugin.feature" }

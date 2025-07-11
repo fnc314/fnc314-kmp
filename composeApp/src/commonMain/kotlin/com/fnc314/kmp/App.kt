@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.layout.safeGesturesPadding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -22,6 +23,7 @@ import com.fnc314.kmp.composeapp.generated.resources.Res
 import com.fnc314.kmp.composeapp.generated.resources.compose_multiplatform
 import com.fnc314.kmp.designsystem.widgets.tile.post.PostTile
 import com.fnc314.kmp.designsystem.widgets.tile.post.PostUIModel
+import com.fnc314.kmp.features.posts.list.PostsListScreen
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.random.Random
@@ -35,50 +37,51 @@ import kotlin.time.ExperimentalTime
 fun App() {
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
-        val posts = mutableListOf(
-            PostUIModel(
-                author = "AUTHOR",
-                postDate = Clock.System.now(),
-                postBody = "Post BODY 1 ".repeat(Random.Default.nextInt(from = 2, until = 10)),
-                reactions = buildMap {
-                    put(PostUIModel.PostReaction.Like, Random.Default.nextInt(from = 5, until = 20))
-                    put(PostUIModel.PostReaction.Dislike, 5)
-                },
-                comments = buildSet {
-                    add(
-                        PostUIModel.PostComment(
-                            author = "Comment Author2",
-                            commentDate = Clock.System.now().plus(1.days),
-                            commentBody = "Comment ".repeat(Random.Default.nextInt(until = 10)),
-                            comments = emptySet(),
+        val posts = remember {
+            mutableListOf(
+                PostUIModel(
+                    author = "AUTHOR",
+                    postDate = Clock.System.now(),
+                    postBody = "Post BODY 1 ".repeat(Random.Default.nextInt(from = 2, until = 10)),
+                    reactions = buildMap {
+                        put(PostUIModel.PostReaction.Like, Random.Default.nextInt(from = 5, until = 20))
+                        put(PostUIModel.PostReaction.Dislike, 5)
+                    },
+                    comments = buildSet {
+                        add(
+                            PostUIModel.PostComment(
+                                author = "Comment Author2",
+                                commentDate = Clock.System.now().plus(1.days),
+                                commentBody = "Comment ".repeat(Random.Default.nextInt(until = 10)),
+                                comments = emptySet(),
+                            )
                         )
-                    )
-                }
-            ),
-            PostUIModel(
-                author = "AUTHOR2",
-                postDate = Clock.System.now(),
-                postBody = "Post BODY 2 ".repeat(Random.Default.nextInt(from = 2, until = 10)),
-                reactions = buildMap {
-                    put(PostUIModel.PostReaction.Like, 5)
-                    put(PostUIModel.PostReaction.Dislike, Random.Default.nextInt(from = 5, until = 20))
-                },
-                comments = buildSet {
-                    add(
-                        PostUIModel.PostComment(
-                            author = "Comment Author",
-                            commentDate = Clock.System.now().plus(2.minutes),
-                            commentBody = "Comment ".repeat(Random.Default.nextInt(until = 10)),
-                            comments = emptySet(),
+                    }
+                ),
+                PostUIModel(
+                    author = "AUTHOR2",
+                    postDate = Clock.System.now(),
+                    postBody = "Post BODY 2 ".repeat(Random.Default.nextInt(from = 2, until = 10)),
+                    reactions = buildMap {
+                        put(PostUIModel.PostReaction.Like, 5)
+                        put(PostUIModel.PostReaction.Dislike, Random.Default.nextInt(from = 5, until = 20))
+                    },
+                    comments = buildSet {
+                        add(
+                            PostUIModel.PostComment(
+                                author = "Comment Author",
+                                commentDate = Clock.System.now().plus(2.minutes),
+                                commentBody = "Comment ".repeat(Random.Default.nextInt(until = 10)),
+                                comments = emptySet(),
+                            )
                         )
-                    )
-                }
-            ),
-        )
+                    }
+                ),
+            )
+        }
         Column(
             modifier = Modifier
-                .safeContentPadding()
-                .fillMaxSize(),
+                .safeContentPadding(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
@@ -99,15 +102,24 @@ fun App() {
                     )
                 }
             }
-            Button(onClick = { showContent = !showContent }) {
+            Button(
+                onClick = { showContent = !showContent }
+            ) {
                 Text("Click me!")
             }
-            AnimatedVisibility(showContent) {
+            AnimatedVisibility(
+                visible = showContent
+            ) {
                 val greeting = remember { Greeting().greet() }
                 Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                     Image(painterResource(Res.drawable.compose_multiplatform), null)
                     Text("Compose: $greeting")
                 }
+            }
+            AnimatedVisibility(
+                visible = !showContent
+            ) {
+                PostsListScreen()
             }
         }
     }

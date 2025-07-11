@@ -3,11 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
-    alias(libs.plugins.kotlin.plugin.serialization)
+    alias(libs.plugins.tools.gradle.plugins.kmp.feature)
 }
 
 kotlin {
@@ -59,7 +55,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.fnc314.kmp.designsystem.widgets"
+    namespace = "com.fnc314.kmp.features.posts.list"
     compileSdkVersion(libs.versions.android.compileSdk.get().toInt())
 
     defaultConfig {
