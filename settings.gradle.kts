@@ -13,6 +13,7 @@ pluginManagement {
         id("org.jetbrains.compose.hot-reload") version("1.0.0-alpha10")
         id("org.jetbrains.compose") version("1.8.2")
         id("org.jetbrains.kotlin.android") version("2.2.0")
+        id("org.jetbrains.kotlin.jvm") version("2.2.0")
         id("org.jetbrains.kotlin.multiplatform") version("2.2.0")
         id("org.jetbrains.kotlin.plugin.compose") version("2.2.0")
         id("org.jetbrains.kotlin.plugin.serialization") version("2.2.0")
