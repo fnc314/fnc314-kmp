@@ -59,7 +59,7 @@ listOf(
         "features" -> file(dir)
             .listFilesOrdered { it.isEligibleForGradleInclusion() }
             .onEach { featureDir ->
-                file(featureDir)
+                featureDir
                     .listFilesOrdered { it.isEligibleForGradleInclusion() }
                     .onEach { featureSubDir ->
                         include(":$dir:${featureDir.name}:${featureSubDir.name}")

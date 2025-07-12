@@ -4,9 +4,7 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
-import org.gradle.api.plugins.ApplicationPlugin
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
@@ -40,7 +38,7 @@ internal sealed class KmpPlugin(
      * @param parentProjectName The [String] for the [Project.getParent]
      * @param projectName The [String] for [Project.name]
      */
-    protected fun KotlinMultiplatformExtension.iOSTargetPrep(
+    protected fun KotlinMultiplatformExtension.prepareIOSTargets(
         project: Project
     ) {
         listOf(
@@ -79,6 +77,22 @@ internal sealed class KmpPlugin(
                     .ifPresent {
                         implementation(it.get())
                     }
+
+                findLibrary("koin.bom")
+                    .ifPresent {
+                        project.dependencies.platform(it.get())
+                    }
+                findBundle("koin")
+                    .ifPresent { bundle ->
+                        bundle.get().onEach {
+                            implementation(it)
+                        }
+                    }
+
+                findLibrary("napier")
+                    .ifPresent {
+                        implementation(it.get())
+                    }
             }
         }
     }
@@ -89,24 +103,29 @@ internal sealed class KmpPlugin(
      * @receiver A [Project] instance
      * @param config A callback with [KotlinMultiplatformExtension] as the receiver
      */
-    protected fun Project.configureKotlin(
+    protected fun Project.kotlinMultiplatformConfiguration(
         config: KotlinMultiplatformExtension.() -> Unit
     ) {
         extensions.configure<KotlinMultiplatformExtension>(config)
     }
 
+    /** Invoked within [apply] before shared configurations */
+    open fun Project.beforePluginApplication() { }
+
     /** Invoked within [apply] to further configure the [Project] */
     open fun Project.afterPluginApplication() { }
 
     final override fun apply(project: Project) {
+        project.beforePluginApplication()
+
         project.applyKotlinComposeAndroidPlugins(
             kmpPluginTarget = kmpPluginTarget
         )
 
-        project.configureKotlin {
+        project.kotlinMultiplatformConfiguration {
             prepareAndroidTarget()
 
-            iOSTargetPrep(
+            prepareIOSTargets(
                 project = project
             )
 

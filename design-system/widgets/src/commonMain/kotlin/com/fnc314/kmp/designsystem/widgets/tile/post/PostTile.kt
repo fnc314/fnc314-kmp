@@ -8,11 +8,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -63,15 +64,14 @@ fun PostTile(
             }
             Row(
                 modifier = Modifier.padding(vertical = 8.dp).fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceAround
             ) {
                 post.reactions.onEach { reaction ->
                     if (reaction.key != PostUIModel.PostReaction.None) {
-                        IconButton(
-                            onClick = {
-                                onPostReaction(reaction.key)
-                            },
-                            colors = IconButtonDefaults.filledIconButtonColors()
+                        Button(
+                            onClick = { onPostReaction(reaction.key) },
+                            modifier = Modifier,
+                            colors = ButtonDefaults.filledTonalButtonColors(),
                         ) {
                             Icon(
                                 modifier = Modifier.padding(all = 10.dp),
@@ -83,6 +83,9 @@ fun PostTile(
                     }
                 }
             }
+            HorizontalDivider(
+                modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
+            )
             Column(
                 modifier = Modifier.fillMaxWidth(),
             ) {

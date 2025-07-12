@@ -1,4 +1,5 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.tools.gradle.plugins.kmp.app)
@@ -36,6 +37,10 @@ android {
         versionName = "1.0"
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -43,6 +48,22 @@ android {
     }
 
     buildTypes {
+        all {
+            Properties()
+                .apply {
+                    load(
+                        file("$rootDir/local.properties").reader()
+                    )
+                }
+                .getProperty("kotzilla.analytics.key")
+                .let {
+                    buildConfigField(
+                        type = "String",
+                        name = "KOTZILLA_ANALYTICS_KEY",
+                        value = "\"$it\""
+                    )
+                }
+        }
         getByName("release") {
             isMinifyEnabled = false
         }

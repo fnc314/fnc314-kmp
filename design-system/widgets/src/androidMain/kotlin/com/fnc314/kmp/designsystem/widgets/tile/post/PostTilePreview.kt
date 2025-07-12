@@ -22,6 +22,7 @@ fun PostTilePreview() {
             post = PostUIModel(
                 author = "Some Author",
                 postDate = Clock.System.now(),
+                postTitle = "POST-by-Author",
                 postBody = "SOME CONTENT ".repeat(20),
                 reactions = buildMap {
                     put(PostUIModel.PostReaction.Like, Random.Default.nextInt(from = 2, until = 10))

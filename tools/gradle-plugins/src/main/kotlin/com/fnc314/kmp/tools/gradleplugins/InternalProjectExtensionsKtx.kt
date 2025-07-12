@@ -27,7 +27,8 @@ internal fun Project.applyKotlinComposeAndroidPlugins(
         VersionCatalogPlugins.entries
             .filter {
                 when (it) {
-                    VersionCatalogPlugins.ANDROID_APPLICATION ->
+                    VersionCatalogPlugins.ANDROID_APPLICATION,
+                    VersionCatalogPlugins.COMPOSE_HOT_RELOAD, ->
                         kmpPluginTarget == KmpPluginTarget.APP
 
                     VersionCatalogPlugins.ANDROID_LIBRARY ->
@@ -56,7 +57,7 @@ internal enum class VersionCatalogPlugins(
     // ANDROID_LIBRARY_MULTIPLATFORM("androidMultiplatformLibrary"),
     COMPOSE_COMPILER("composeCompiler"),
     COMPOSE_MULTIPLATFORM("composeMultiplatform"),
-    // COMPOSE_HOT_RELOAD("composeHotReload"),
+    COMPOSE_HOT_RELOAD("composeHotReload"),
     KOTLIN_MULTIPLATFORM("kotlinMultiplatform"),
     KOTLIN_PLUGIN_SERIALIZATION("kotlin.plugin.serialization"),
     ;
@@ -66,6 +67,7 @@ internal enum class VersionCatalogPlugins(
  * Implementations of [KmpPlugin] vary by a [KmpPluginTarget] and uses [KmpPluginTarget.namespaceBase]
  */
 internal enum class KmpPluginTarget {
+    AGGREGATE,
     APP,
     COMPONENT,
     DESIGN_SYSTEM,
