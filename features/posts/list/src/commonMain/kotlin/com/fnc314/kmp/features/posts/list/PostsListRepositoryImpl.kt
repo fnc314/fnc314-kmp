@@ -4,12 +4,15 @@ package com.fnc314.kmp.features.posts.list
 
 import com.fnc314.kmp.designsystem.widgets.tile.post.PostUIModel
 import io.github.aakira.napier.Napier
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.random.Random
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.days
@@ -68,27 +71,29 @@ internal class PostsListRepositoryImpl() : PostsListRepository {
         .flowOn(Dispatchers.IO)
 
     init {
-        _posts.tryEmit(postSet)
-            .also {
-                Napier.i("TryEmit $it")
-            }
+        CoroutineScope(Dispatchers.IO)
+            .launch { _posts.emit(postSet) }
+            .start()
+            .also { Napier.i("Started? $it") }
     }
 
     override suspend fun updatePostReaction(postIndex: Int, reaction: PostUIModel.PostReaction) {
-        postSet[postIndex].let {
-            it.copy(
-                reactions = buildMap {
-                    it.reactions.onEach { existingReaction ->
-                        if (existingReaction.key == reaction) {
-                            put(reaction, existingReaction.value + 1)
-                        } else {
-                            put(existingReaction.key, existingReaction.value)
+        withContext(Dispatchers.IO) {
+            postSet[postIndex].let {
+                it.copy(
+                    reactions = buildMap {
+                        it.reactions.onEach { existingReaction ->
+                            if (existingReaction.key == reaction) {
+                                put(reaction, existingReaction.value + 1)
+                            } else {
+                                put(existingReaction.key, existingReaction.value)
+                            }
                         }
                     }
-                }
-            )
-        }.also { postSet[postIndex] = it }
+                )
+            }.also { postSet[postIndex] = it }
 
-        _posts.tryEmit(postSet)
+            _posts.emit(postSet)
+        }
     }
 }

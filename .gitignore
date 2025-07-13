@@ -17,5 +17,7 @@ captures
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
 logs
+
+# Kotzilla
 composeApp/kotzilla.json
 composeApp/src/main/assets/kotzilla.key

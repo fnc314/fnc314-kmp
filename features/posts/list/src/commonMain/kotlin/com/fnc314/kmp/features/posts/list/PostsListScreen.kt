@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.fnc314.kmp.designsystem.widgets.tile.post.PostTile
 import com.fnc314.kmp.designsystem.widgets.tile.post.PostUIModel
-import io.github.aakira.napier.Napier
 
 @Composable
 fun PostsListScreen(
@@ -25,7 +24,6 @@ fun PostsListScreen(
             items = postsListViewModel.postsFlow.value,
             key = { index: Int, item: PostUIModel -> item.key(index) },
         ) { index: Int, item: PostUIModel ->
-            Napier.i("Rendering $item\n$index")
             PostTile(
                 modifier = modifier,
                 post = item

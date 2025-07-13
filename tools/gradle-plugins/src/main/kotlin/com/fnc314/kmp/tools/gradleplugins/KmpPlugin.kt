@@ -1,5 +1,8 @@
 package com.fnc314.kmp.tools.gradleplugins
 
+import com.android.build.gradle.BaseExtension
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
+import com.codingfeline.buildkonfig.gradle.BuildKonfigExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -9,6 +12,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+import java.util.Properties
 
 internal sealed class KmpPlugin(
     protected val kmpPluginTarget: KmpPluginTarget,
@@ -26,6 +30,7 @@ internal sealed class KmpPlugin(
                 languageVersion.set(KotlinVersion.KOTLIN_2_2)
                 optIn.addAll(
                     "kotlin.time.ExperimentalTime",
+                    "kotlin.ExperimentalStdlibApi",
                 )
             }
         }
@@ -35,11 +40,10 @@ internal sealed class KmpPlugin(
      * Configures the [KotlinMultiplatformExtension.iosX64], [KotlinMultiplatformExtension.iosArm64], and
      *   [KotlinMultiplatformExtension.iosSimulatorArm64] targets
      * @receiver A [KotlinMultiplatformExtension] instance
-     * @param parentProjectName The [String] for the [Project.getParent]
-     * @param projectName The [String] for [Project.name]
+     * @param binaryBaseName The binary base name for all iOS targets
      */
     protected fun KotlinMultiplatformExtension.prepareIOSTargets(
-        project: Project
+        binaryBaseName: String
     ) {
         listOf(
             iosX64(),
@@ -47,7 +51,7 @@ internal sealed class KmpPlugin(
             iosSimulatorArm64(),
         ).onEach { iosTarget ->
             iosTarget.binaries.framework {
-                baseName = kmpPluginTarget.calculateIosTargetBinaryBaseName(project = project)
+                baseName = binaryBaseName
                 isStatic = true
             }
         }
@@ -109,6 +113,28 @@ internal sealed class KmpPlugin(
         extensions.configure<KotlinMultiplatformExtension>(config)
     }
 
+    /**
+     * Configures the [BuildKonfigExtension] bound to the receiving [Project]
+     * @receiver A [Project] instance
+     * @param config A callback into which the [BuildKonfigExtension] is a receiver
+     */
+    protected fun Project.configureBuildKonfig(
+        config: BuildKonfigExtension.() -> Unit
+    ) {
+        extensions.configure<BuildKonfigExtension>(config)
+    }
+
+    /**
+     * Configures the [BaseExtension] from the Android Gradle Plugins (Library or Application)
+     * @receiver A [Project] instance
+     * @param config A callback into which the [BaseExtension] is a receiver
+     */
+    protected fun Project.configureAndroidBaseExtension(
+        config: BaseExtension.() -> Unit
+    ) {
+        extensions.configure<BaseExtension>(config)
+    }
+
     /** Invoked within [apply] before shared configurations */
     open fun Project.beforePluginApplication() { }
 
@@ -122,11 +148,31 @@ internal sealed class KmpPlugin(
             kmpPluginTarget = kmpPluginTarget
         )
 
+        project.configureBuildKonfig {
+            packageName = kmpPluginTarget.calculateNamespace(project = project)
+            defaultConfigs {
+                project.rootDir
+                    .resolve("local.properties")
+                    .reader(charset = Charsets.UTF_8)
+                    .use { reader ->
+                        Properties().apply { load(reader) }
+                    }
+                    .getProperty("kotzilla.analytics.key")
+                    .let { property ->
+                        it.buildConfigField(
+                            type = STRING,
+                            name = "KOTZILLA_ANALYTICS_KEY",
+                            value = property
+                        )
+                    }
+            }
+        }
+
         project.kotlinMultiplatformConfiguration {
             prepareAndroidTarget()
 
             prepareIOSTargets(
-                project = project
+                binaryBaseName = kmpPluginTarget.calculateIosTargetBinaryBaseName(project = project)
             )
 
             jvm(name = "desktop")
@@ -148,7 +194,7 @@ internal sealed class KmpPlugin(
             }
         }
 
-        project.extensions.configure<com.android.build.gradle.BaseExtension> {
+        project.configureAndroidBaseExtension {
             namespace = kmpPluginTarget.calculateNamespace(project = project)
 
             project.versionCatalog().run {

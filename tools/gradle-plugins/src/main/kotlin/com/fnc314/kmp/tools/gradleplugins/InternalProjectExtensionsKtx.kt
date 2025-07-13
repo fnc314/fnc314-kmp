@@ -18,6 +18,7 @@ internal fun Project.versionCatalog(name: String = "libs"): VersionCatalog =
 /**
  * Applies the set of [VersionCatalogPlugins] from the [VersionCatalog] to the
  *   receiving [Project]
+ * @param kmpPluginTarget The [KmpPluginTarget] being built
  * @receiver A [Project] instance
  */
 internal fun Project.applyKotlinComposeAndroidPlugins(
@@ -60,6 +61,7 @@ internal enum class VersionCatalogPlugins(
     COMPOSE_HOT_RELOAD("composeHotReload"),
     KOTLIN_MULTIPLATFORM("kotlinMultiplatform"),
     KOTLIN_PLUGIN_SERIALIZATION("kotlin.plugin.serialization"),
+    BUILD_KONFIG("build.konfig"),
     ;
 }
 

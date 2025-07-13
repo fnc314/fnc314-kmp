@@ -1,6 +1,7 @@
 package com.fnc314.kmp
 
 import android.app.Application
+import com.fnc314.kmp.app.composeApp.BuildKonfig
 import com.fnc314.kmp.features.posts.list.postsListModule
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
@@ -15,7 +16,7 @@ class KmpApp : Application() {
         startKoin {
             androidContext(this@KmpApp)
             analytics {
-                setApiKey(BuildConfig.KOTZILLA_ANALYTICS_KEY)
+                setApiKey(BuildKonfig.KOTZILLA_ANALYTICS_KEY)
                 setVersion("1.0.0")
             }
             modules(

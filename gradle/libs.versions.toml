@@ -30,6 +30,7 @@
     koin = "4.1.0"
     kotzilla = "1.1.0"
     napier = "2.7.1"
+    build-konfig = "0.17.1"
 
 [libraries]
     agp = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -100,6 +101,8 @@
     kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
     androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-ui-tooling" }
     napier = { module = "io.github.aakira:napier", version.ref = "napier" }
+    build-konfig = { module = "com.codingfeline.buildkonfig:buildkonfig-gradle-plugin", version.ref = "build-konfig" }
+    build-konfig-compiler = { module = "com.codingfeline.buildkonfig:buildkonfig-compiler", version.ref = "build-konfig" }
 
 [bundles]
     agp = [
@@ -113,6 +116,9 @@
         "androidx-compose-material3-adaptive",
         "androidx-compose-material3-adaptive-layout",
         "androidx-compose-material3-adaptive-navigation",
+    ]
+    build-konfig = [
+        "build-konfig", "build-konfig-compiler"
     ]
     compose = [
         "compose-components-resources", "compose-components-ui-tooling-preview",
@@ -157,3 +163,4 @@
     tools-gradle-plugins-kmp-component = { id = "com.fnc314.kmp.tools.gradle.plugin.component" }
     tools-gradle-plugins-kmp-feature = { id = "com.fnc314.kmp.tools.gradle.plugin.feature" }
     tools-gradle-plugins-kmp-design-system = { id = "com.fnc314.kmp.tools.gradle.plugin.design-system" }
+    build-konfig = { id = "com.codingfeline.buildkonfig", version.ref = "build-konfig" }

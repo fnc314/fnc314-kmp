@@ -273,6 +273,8 @@ ij_markdown_wrap_text_inside_blockquotes = true
 [{*.toml,Cargo.lock,Cargo.toml.orig,Gopkg.lock,Pipfile,poetry.lock,uv.lock}]
 ij_toml_keep_indents_on_empty_lines = false
 
+# [*.xml]
+
 # [*.java]
 # max_line_length = 0
 # ij_java_align_consecutive_assignments = false

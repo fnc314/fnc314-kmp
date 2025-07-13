@@ -7,6 +7,7 @@ import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class PostsListViewModel(
@@ -19,7 +20,7 @@ class PostsListViewModel(
         viewModelScope.launch {
             postsListRepository
                 .posts()
-                .collect {
+                .collectLatest {
                     Napier.i("Collected $it")
                     _postsList.value = it
                 }
