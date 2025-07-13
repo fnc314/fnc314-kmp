@@ -1,4 +1,4 @@
-package com.fnc314.kmp
+package com.fnc314.kmp.app.compose
 
 class JVMPlatform: Platform {
     override val name: String = "Java ${System.getProperty("java.version")}"

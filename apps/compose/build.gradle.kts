@@ -28,7 +28,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.fnc314.kmp.app.compose.android"
+    namespace = "com.fnc314.kmp.app.compose"
 
     defaultConfig {
         applicationId = "com.fnc314.kmp.app.compose.android"
@@ -56,11 +56,11 @@ android {
 
 compose.desktop {
     application {
-        mainClass = "com.fnc314.kmp.MainKt"
+        mainClass = "com.fnc314.kmp.app.compose.MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.fnc314.kmp.app.compose.desktop"
+            packageName = "com.fnc314.kmp.app.compose"
             packageVersion = "1.0.0"
         }
     }

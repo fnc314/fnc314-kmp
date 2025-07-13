@@ -31,6 +31,11 @@ internal sealed class KmpPlugin(
                 optIn.addAll(
                     "kotlin.time.ExperimentalTime",
                     "kotlin.ExperimentalStdlibApi",
+                    "kotlin.ExperimentalMultiplatform",
+                    "kotlin.ExperimentalUnsignedTypes",
+                    "kotlin.experimental.ExperimentalTypeInference",
+                    "kotlin.uuid.ExperimentalUuidApi",
+                    "kotlin.contracts.ExperimentalContracts",
                 )
             }
         }
@@ -92,7 +97,11 @@ internal sealed class KmpPlugin(
                             implementation(it)
                         }
                     }
-
+                findBundle("kotlin.libs").ifPresent { bundle ->
+                    bundle.get().onEach {
+                        implementation(it)
+                    }
+                }
                 findLibrary("napier")
                     .ifPresent {
                         implementation(it.get())
@@ -169,6 +178,19 @@ internal sealed class KmpPlugin(
         }
 
         project.kotlinMultiplatformConfiguration {
+            compilerOptions {
+                apiVersion.set(KotlinVersion.KOTLIN_2_2)
+                languageVersion.set(KotlinVersion.KOTLIN_2_2)
+                optIn.addAll(
+                    "kotlin.time.ExperimentalTime",
+                    "kotlin.ExperimentalStdlibApi",
+                    "kotlin.ExperimentalMultiplatform",
+                    "kotlin.ExperimentalUnsignedTypes",
+                    "kotlin.experimental.ExperimentalTypeInference",
+                    "kotlin.uuid.ExperimentalUuidApi",
+                    "kotlin.contracts.ExperimentalContracts",
+                )
+            }
             prepareAndroidTarget()
 
             prepareIOSTargets(
@@ -183,7 +205,6 @@ internal sealed class KmpPlugin(
 
             project.versionCatalog().run {
                 sourceSets.apply {
-
                     findLibrary("androidx.ui.tooling").ifPresent {
                         androidMain.dependencies {
                             implementation(it.get())
@@ -212,8 +233,15 @@ internal sealed class KmpPlugin(
             }
         }
 
-        project.versionCatalog().findLibrary("kotlin.stdlib").ifPresent {
-            project.dependencies.addProvider("implementation", it)
+        project.versionCatalog().run {
+            findBundle("kotlin.libs").ifPresent { bundle ->
+                bundle.get().onEach {
+                    project.dependencies.add(
+                        "implementation",
+                        it
+                    )
+                }
+            }
         }
 
         project.afterPluginApplication()

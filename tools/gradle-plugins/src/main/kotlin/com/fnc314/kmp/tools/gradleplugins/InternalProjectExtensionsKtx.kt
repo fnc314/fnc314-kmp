@@ -85,10 +85,14 @@ internal enum class KmpPluginTarget {
      *   [Project.getParent] for [FEATURE] cases
      * @param project A [Project] to which a [KmpPlugin] is applied
      */
-    fun calculateNamespace(project: Project): String = when (this) {
-        FEATURE -> "$namespaceBase.${project.parent!!.name}.${project.name}"
-        else -> "$namespaceBase.${project.name}"
-    }
+    fun calculateNamespace(project: Project): String =
+        project.path
+            .split(":")
+            .filterNot { it.isBlank() }
+            .drop(1)
+            .joinToString(".")
+            .let { "$namespaceBase.$it" }
+            // .also { project.logger.error("Project ${project.path} namespace $it") }
 
     /** Used for [org.jetbrains.kotlin.gradle.plugin.mpp.NativeBinary.baseName] */
     private val iosTargetBinaryBaseNamePrefix: String

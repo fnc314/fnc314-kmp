@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalTime::class)
 
-package com.fnc314.kmp
+package com.fnc314.kmp.app.compose
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
@@ -21,8 +21,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.fnc314.kmp.composeapp.generated.resources.Res
-import com.fnc314.kmp.composeapp.generated.resources.compose_multiplatform
+import com.fnc314.kmp.compose.generated.resources.Res
+import com.fnc314.kmp.compose.generated.resources.compose_multiplatform
 import com.fnc314.kmp.features.posts.list.PostsListScreen
 import com.fnc314.kmp.features.posts.list.PostsListViewModel
 import org.jetbrains.compose.resources.painterResource
@@ -40,7 +40,8 @@ fun App() {
             modifier = Modifier
                 .safeContentPadding()
                 .statusBarsPadding()
-                .systemBarsPadding(),
+                .systemBarsPadding()
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
         ) {

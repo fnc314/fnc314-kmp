@@ -68,6 +68,7 @@
     # koin-test-junit5 = { module = "io.insert-koin:koin-test-junit5", version.ref = "koin" }
     kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
     kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+    kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
     kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
     kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
     # Ktor Client - Core
@@ -146,6 +147,9 @@
         "ktor-client-core",
         "ktor-client-js", # For Javascript (Browser and Node.js)
         "ktor-client-content-negotiation"
+    ]
+    kotlin-libs = [
+        "kotlin-stdlib", "kotlin-reflect"
     ]
 
 [plugins]

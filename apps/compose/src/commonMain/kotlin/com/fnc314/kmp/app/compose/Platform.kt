@@ -1,4 +1,4 @@
-package com.fnc314.kmp
+package com.fnc314.kmp.app.compose
 
 interface Platform {
     val name: String

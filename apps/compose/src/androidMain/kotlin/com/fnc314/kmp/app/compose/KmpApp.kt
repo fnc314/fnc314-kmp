@@ -1,7 +1,6 @@
-package com.fnc314.kmp
+package com.fnc314.kmp.app.compose
 
 import android.app.Application
-import com.fnc314.kmp.app.composeApp.BuildKonfig
 import com.fnc314.kmp.features.posts.list.postsListModule
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier

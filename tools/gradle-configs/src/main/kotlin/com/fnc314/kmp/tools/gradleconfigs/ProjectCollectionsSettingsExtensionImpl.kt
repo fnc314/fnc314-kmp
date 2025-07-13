@@ -9,9 +9,9 @@ import javax.inject.Inject
  *   [registerNestedProjectCollection] methods
  * @param objectFactory An instance of the [org.gradle.api.model.ObjectFactory]
  */
-internal open class ProjectCollectionsSettingsExtensionImpl @Inject constructor(
+internal abstract class ProjectCollectionsSettingsExtensionImpl @Inject constructor(
     private val objectFactory: ObjectFactory,
-) : ProjectCollectionsSettingsExtension {
+) : ProjectCollectionsSettingsExtension() {
     override val projectCollections: MapProperty<String, Int> = objectFactory.mapProperty(
         String::class.java, Int::class.java
     )

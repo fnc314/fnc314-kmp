@@ -6,7 +6,7 @@ import org.gradle.api.provider.MapProperty
  * Attached to a [org.gradle.api.initialization.Settings] object to configure the
  *   [ProjectCollectionsSettingsPlugin]
  */
-interface ProjectCollectionsSettingsExtension {
+abstract class ProjectCollectionsSettingsExtension {
     /** @hide */
     companion object {
         /** The name for the actual extension found in [org.gradle.api.initialization.Settings.getExtensions] */
@@ -15,19 +15,9 @@ interface ProjectCollectionsSettingsExtension {
 
     /**
      * A [Map] of the top-level directory name (as a [String]) as well as the [Int] representing how
-     *   nested projects are within the top-level directory
-     * ```kotlin
-     * projectCollections.projectCollections.putAll(
-     *     mapOf(
-     *         "top-level" to 1,
-     *         "nested-features" to 3, // means "nested-features/layer-1/layer-2/layer-3"
-     *         "components" to 1,
-     *         // ...
-     *     )
-     * )
-     * ```
+     *   nested projects are within the top-level directory.  Unexposed to consumers
      */
-    val projectCollections: MapProperty<String, Int>
+    internal abstract val projectCollections: MapProperty<String, Int>
 
     /**
      * Register a collection of 1-level-deep projects
@@ -39,7 +29,7 @@ interface ProjectCollectionsSettingsExtension {
      * ```
      * @param topLevelDir The collection name/top-level directory
      */
-    fun registerProjectCollection(topLevelDir: String)
+    abstract fun registerProjectCollection(topLevelDir: String)
 
     /**
      * Register a collection of nested projects
@@ -53,7 +43,7 @@ interface ProjectCollectionsSettingsExtension {
      * @param depth The depth within [topLevelDir] which must be traversed to find a desired project
      * @see registerProjectCollection
      */
-    fun registerProjectCollection(topLevelDir: String, depth: Int)
+    abstract fun registerProjectCollection(topLevelDir: String, depth: Int)
 
     /**
      * A friendly-syntax approach to including collections of projects
@@ -63,12 +53,13 @@ interface ProjectCollectionsSettingsExtension {
      *     "components" withDepthOf 1
      *     "design-system" withDepthOf 1
      *     "features" withDepthOf 2
+     *     // means "features/first/project-a", "features/first/project-b", "features/second/project-a", etc...
      * }
      * ```
      * @receiver A [String] interpreted as the top-level directory name
      * @param depth An [Int] indicating how deep into the top-level directory members we are required to traverse
      */
-    infix fun String.withDepthOf(depth: Int)
+    abstract infix fun String.withDepthOf(depth: Int)
 
     /**
      * Register a collection of nested projects
@@ -81,5 +72,5 @@ interface ProjectCollectionsSettingsExtension {
      * @param topLevelDir The collection name/top-level directory
      * @param depth The depth within [topLevelDir] which must be traversed to find a desired project
      */
-    fun registerNestedProjectCollection(topLevelDir: String, depth: Int)
+    abstract fun registerNestedProjectCollection(topLevelDir: String, depth: Int)
 }
