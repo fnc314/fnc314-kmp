@@ -1,5 +1,6 @@
 pluginManagement {
     includeBuild("tools")
+
     plugins {
         id("com.android.settings") version("8.11.1")
         id("com.android.library") version("8.11.1")
@@ -18,7 +19,7 @@ pluginManagement {
     resolutionStrategy {
         eachPlugin {
             when {
-                requested.module?.group == "org.jetbrains.kotlin" -> useVersion("2.2.0")
+                requested.id.namespace?.startsWith("org.jetbrains.kotlin") == true -> useVersion("2.2.0")
                 requested.id.id.startsWith("com.android") -> useVersion("8.11.1")
                 else -> return@eachPlugin
             }
@@ -27,9 +28,9 @@ pluginManagement {
 }
 
 plugins {
-    id("com.fnc314.kmp.tools.gradle.configs.project-collections-settings")
-    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-    id("com.android.settings") version "8.11.1"
+    id("com.fnc314.gradle.plugins.settings.project-collections-gradle-settings-plugin") version("1.0.0")
+    id("org.gradle.toolchains.foojay-resolver-convention") version("1.0.0")
+    id("com.android.settings") version("8.11.1")
 }
 
 android {
@@ -44,6 +45,8 @@ projectCollections {
     "components" withDepthOf 1
     "design-system" withDepthOf 1
     "features" withDepthOf 2
+
+    fileCheck.set { file -> file.name.first().toString() !in listOf(".", "-", "_",) }
 }
 
 rootProject.name = "fnc314-kmp"
