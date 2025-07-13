@@ -40,10 +40,10 @@ android {
 }
 
 projectCollections {
-    registerProjectCollection("apps")
-    registerProjectCollection("components")
-    registerProjectCollection("design-system")
-    registerNestedProjectCollection("features", 2)
+    "apps" withDepthOf 1
+    "components" withDepthOf 1
+    "design-system" withDepthOf 1
+    "features" withDepthOf 2
 }
 
 rootProject.name = "fnc314-kmp"

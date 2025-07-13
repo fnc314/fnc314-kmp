@@ -33,7 +33,8 @@ interface ProjectCollectionsSettingsExtension {
      * Register a collection of 1-level-deep projects
      * ```kotlin
      * projectCollections {
-     *     registerProjectCollection("some-dir")
+     *     registerProjectCollection(topLevelDir = "some-dir")
+     *     // implies "some-dir/first", "some-dir/second", etc...
      * }
      * ```
      * @param topLevelDir The collection name/top-level directory
@@ -44,12 +45,41 @@ interface ProjectCollectionsSettingsExtension {
      * Register a collection of nested projects
      * ```kotlin
      * projectCollections {
-     *     registerNestedProjectCollection("some-dir", nesting = 3)
-     *     // implies "some-dir/first/second/desired"
+     *     registerProjectCollection(topLevelDir = "some-dir", depth = 3)
+     *     // implies "some-dir/first/second/desired", "some-dir/other/layer/target", etc...
      * }
      * ```
      * @param topLevelDir The collection name/top-level directory
-     * @param nesting The depth within [topLevelDir] which must be traversed to find a desired project
+     * @param depth The depth within [topLevelDir] which must be traversed to find a desired project
+     * @see registerProjectCollection
      */
-    fun registerNestedProjectCollection(topLevelDir: String, nesting: Int)
+    fun registerProjectCollection(topLevelDir: String, depth: Int)
+
+    /**
+     * A friendly-syntax approach to including collections of projects
+     * ```kotlin
+     * projectCollections {
+     *     "apps" withDepthOf 1
+     *     "components" withDepthOf 1
+     *     "design-system" withDepthOf 1
+     *     "features" withDepthOf 2
+     * }
+     * ```
+     * @receiver A [String] interpreted as the top-level directory name
+     * @param depth An [Int] indicating how deep into the top-level directory members we are required to traverse
+     */
+    infix fun String.withDepthOf(depth: Int)
+
+    /**
+     * Register a collection of nested projects
+     * ```kotlin
+     * projectCollections {
+     *     registerNestedProjectCollection(topLevelDir = "some-dir", depth = 3)
+     *     // implies "some-dir/first/second/desired", "some-dir/other/layer/target", etc...
+     * }
+     * ```
+     * @param topLevelDir The collection name/top-level directory
+     * @param depth The depth within [topLevelDir] which must be traversed to find a desired project
+     */
+    fun registerNestedProjectCollection(topLevelDir: String, depth: Int)
 }
