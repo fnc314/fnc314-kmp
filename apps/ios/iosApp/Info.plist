@@ -5,13 +5,13 @@
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleDefault</string>
 	<key>CFBundleDisplayName</key>
-	<string>fnc314.kmp.ios</string>
+	<string>com.fnc314.kmp.app.ios</string>
 	<key>UIRequiresPersistentWiFi</key>
 	<true/>
 	<key>LSGetAppDiedEvents</key>
 	<true/>
 	<key>CFBundleIdentifier</key>
-	<string>com.fnc314.kmp.ios</string>
+	<string>com.fnc314.kmp.app.ios</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 </dict>

@@ -40,15 +40,10 @@ android {
 }
 
 projectCollections {
-    projectCollections.putAll(
-        mapOf(
-            "components" to 1,
-            "design-system" to 1,
-            "features" to 2
-        )
-    )
+    registerProjectCollection("apps")
+    registerProjectCollection("components")
+    registerProjectCollection("design-system")
+    registerNestedProjectCollection("features", 2)
 }
-
-include(":composeApp")
 
 rootProject.name = "fnc314-kmp"

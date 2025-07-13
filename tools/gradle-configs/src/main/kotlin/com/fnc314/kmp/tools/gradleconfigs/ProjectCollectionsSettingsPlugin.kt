@@ -76,8 +76,9 @@ internal abstract class ProjectCollectionsSettingsPlugin : Plugin<Settings> {
 
     override fun apply(target: Settings) {
         target.extensions.create(
-            "projectCollections",
-            ProjectCollectionsSettingsExtension::class.java
+            ProjectCollectionsSettingsExtension::class.java,
+            ProjectCollectionsSettingsExtension.EXTENSION_NAME,
+            ProjectCollectionsSettingsExtensionImpl::class.java
         )
         target.gradle.settingsEvaluated { settings ->
             settings.extensions.getByType<ProjectCollectionsSettingsExtension>()
