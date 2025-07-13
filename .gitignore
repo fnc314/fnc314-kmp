@@ -21,3 +21,4 @@ logs
 # Kotzilla
 apps/compose/kotzilla.json
 apps/compose/src/main/assets/kotzilla.key
+**/bin

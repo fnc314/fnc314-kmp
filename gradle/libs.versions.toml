@@ -31,6 +31,7 @@
     kotzilla = "1.1.0"
     napier = "2.7.1"
     build-konfig = "0.17.1"
+    com-fnc314-gradle-plugins-settings-project-collections = "1.0.0"
 
 [libraries]
     agp = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -104,6 +105,7 @@
     napier = { module = "io.github.aakira:napier", version.ref = "napier" }
     build-konfig = { module = "com.codingfeline.buildkonfig:buildkonfig-gradle-plugin", version.ref = "build-konfig" }
     build-konfig-compiler = { module = "com.codingfeline.buildkonfig:buildkonfig-compiler", version.ref = "build-konfig" }
+    com-fnc314-gradle-plugins-settings-project-collections = { module = "com.fnc314.gradle.plugins.settings:project-collections-gradle-settings-plugin", version.ref = "com-fnc314-gradle-plugins-settings-project-collections" }
 
 [bundles]
     agp = [
@@ -168,3 +170,4 @@
     tools-gradle-plugins-kmp-feature = { id = "com.fnc314.kmp.tools.gradle.plugin.feature" }
     tools-gradle-plugins-kmp-design-system = { id = "com.fnc314.kmp.tools.gradle.plugin.design-system" }
     build-konfig = { id = "com.codingfeline.buildkonfig", version.ref = "build-konfig" }
+    com-fnc314-gradle-plugins-settings-project-collections = { id = "com.fnc314.gradle.plugins.settings.project-collections-gradle-settings-plugin", version.ref = "com-fnc314-gradle-plugins-settings-project-collections" }
