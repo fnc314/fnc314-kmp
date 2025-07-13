@@ -6,5 +6,6 @@ dependencyResolutionManagement {
     }
 }
 
+include(":gradle-configs")
 include(":gradle-plugins")
 rootProject.name = "fnc314-kmp-tools"
