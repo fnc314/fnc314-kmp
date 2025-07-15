@@ -6,6 +6,7 @@ pluginManagement {
         id("com.android.library") version("8.11.1")
         id("com.android.application") version("8.11.1")
         id("com.android.kotlin.multiplatform.library") version("8.11.1")
+        id("com.fnc314.gradle.plugins.settings.project-collections-gradle-settings-plugin") version("1.0.0")
         id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
         id("org.jetbrains.compose.hot-reload") version("1.0.0-alpha10")
         id("org.jetbrains.compose") version("1.8.2")
