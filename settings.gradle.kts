@@ -2,36 +2,36 @@ pluginManagement {
     includeBuild("tools")
 
     plugins {
-        id("com.android.settings") version("8.11.1")
-        id("com.android.library") version("8.11.1")
-        id("com.android.application") version("8.11.1")
-        id("com.android.kotlin.multiplatform.library") version("8.11.1")
-        id("com.fnc314.gradle.plugins.settings.project-collections-gradle-settings-plugin") version("1.0.0")
+        id("com.android.settings") version("8.12.0")
+        id("com.android.library") version("8.12.0")
+        id("com.android.application") version("8.12.0")
+        id("com.android.kotlin.multiplatform.library") version("8.12.0")
+        id("com.fnc314.gradle.plugins.settings.project-collections-gradle-settings-plugin") version("1.0.6")
         id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-        id("org.jetbrains.compose.hot-reload") version("1.0.0-alpha10")
+        id("org.jetbrains.compose.hot-reload") version("1.0.0-beta04")
         id("org.jetbrains.compose") version("1.8.2")
-        id("org.jetbrains.kotlin.android") version("2.2.0")
-        id("org.jetbrains.kotlin.jvm") version("2.2.0")
-        id("org.jetbrains.kotlin.multiplatform") version("2.2.0")
-        id("org.jetbrains.kotlin.plugin.compose") version("2.2.0")
-        id("org.jetbrains.kotlin.plugin.serialization") version("2.2.0")
+        id("org.jetbrains.kotlin.android") version(embeddedKotlinVersion)
+        id("org.jetbrains.kotlin.jvm") version(embeddedKotlinVersion)
+        id("org.jetbrains.kotlin.multiplatform") version(embeddedKotlinVersion)
+        id("org.jetbrains.kotlin.plugin.compose") version(embeddedKotlinVersion)
+        id("org.jetbrains.kotlin.plugin.serialization") version(embeddedKotlinVersion)
     }
 
     resolutionStrategy {
         eachPlugin {
             when {
-                requested.id.namespace?.startsWith("org.jetbrains.kotlin") == true -> useVersion("2.2.0")
-                requested.id.id.startsWith("com.android") -> useVersion("8.11.1")
-                else -> return@eachPlugin
+                requested.id.namespace?.startsWith("org.jetbrains.kotlin") == true -> useVersion(embeddedKotlinVersion)
+                requested.id.id.startsWith("com.android") -> useVersion("8.12.0")
+                else -> useVersion(requested.version)
             }
         }
     }
 }
 
 plugins {
-    id("com.fnc314.gradle.plugins.settings.project-collections-gradle-settings-plugin") version("1.0.0")
+    id("com.fnc314.gradle.plugins.settings.project-collections-gradle-settings-plugin") version("1.0.6")
     id("org.gradle.toolchains.foojay-resolver-convention") version("1.0.0")
-    id("com.android.settings") version("8.11.1")
+    id("com.android.settings") version("8.12.0")
 }
 
 android {
@@ -42,10 +42,10 @@ android {
 }
 
 projectCollections {
-    "apps" withDepthOf 1
-    "components" withDepthOf 1
-    "design-system" withDepthOf 1
-    "features" withDepthOf 2
+    "apps" toDepthOf 1
+    "components" toDepthOf 1
+    "design-system" toDepthOf 1
+    "features" toDepthOf 2
 
     fileCheck.set { file -> file.name.first().toString() !in listOf(".", "-", "_",) }
 }
