@@ -20,7 +20,8 @@
     androidx-ui-tooling = "1.9.4"
     jetbrains-material3-compose = "1.8.2"
     composeHotReload = "1.0.0-rc02"
-    composeMultiplatform = "1.9.2"
+    composeMultiplatformGradlePlugin = "1.9.2"
+    composeMultiplatform = "1.9.0"
     composeMaterialIconsExtended = "1.7.3"
     junit = "4.13.2"
     kotlin = "2.2.21"
@@ -38,15 +39,15 @@
     agp-api = { module = "com.android.tools.build:gradle-api", version.ref = "agp" }
     agp-lint = { module = "com.android.tools.build:gradle-lint-api", version.ref = "agp-lint" }
     agp-settings-api = { module = "com.android.tools.build:gradle-settings-api", version.ref = "agp" }
-    compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "composeMultiplatform" }
-    compose-components-ui-tooling-preview = { module = "org.jetbrains.compose.components:components-ui-tooling-preview", version.ref = "composeMultiplatform" }
-    compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "composeMultiplatform" }
+    compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "composeMultiplatformGradlePlugin" }
+    compose-components-ui-tooling-preview = { module = "org.jetbrains.compose.components:components-ui-tooling-preview", version.ref = "composeMultiplatformGradlePlugin" }
+    compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "composeMultiplatformGradlePlugin" }
     compose-material = { module = "org.jetbrains.compose.material:material", version.ref = "composeMultiplatform" }
     compose-material-extended-icons = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "composeMaterialIconsExtended" }
     compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "composeMultiplatform" }
-    compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "composeMultiplatform" }
-    compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatform" }
-    compose-ui-util = { module = "org.jetbrains.compose.ui:ui-util", version.ref = "composeMultiplatform" }
+    compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "composeMultiplatformGradlePlugin" }
+    compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatformGradlePlugin" }
+    compose-ui-util = { module = "org.jetbrains.compose.ui:ui-util", version.ref = "composeMultiplatformGradlePlugin" }
     koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
     koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
     koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
