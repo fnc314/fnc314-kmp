@@ -84,7 +84,6 @@ internal enum class VersionCatalogPlugins(
  */
 internal enum class KmpPluginTarget {
     AGGREGATE,
-    APP,
     APP_ANDROID,
     APP_COMPOSE,
     COMPONENT,
