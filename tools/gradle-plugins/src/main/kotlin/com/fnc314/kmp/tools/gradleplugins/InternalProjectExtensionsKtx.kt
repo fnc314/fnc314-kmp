@@ -28,9 +28,15 @@ internal fun Project.applyKotlinComposeAndroidPlugins(
         VersionCatalogPlugins.entries
             .filter {
                 when (it) {
+                    VersionCatalogPlugins.BUILD_KONFIG ->
+                        kmpPluginTarget != KmpPluginTarget.APP
+
                     VersionCatalogPlugins.ANDROID_APPLICATION,
                     VersionCatalogPlugins.COMPOSE_HOT_RELOAD, ->
                         kmpPluginTarget == KmpPluginTarget.APP
+
+                    VersionCatalogPlugins.KOTLIN_MULTIPLATFORM ->
+                        kmpPluginTarget != KmpPluginTarget.APP
 
                     VersionCatalogPlugins.ANDROID_LIBRARY -> false
 
@@ -41,6 +47,7 @@ internal fun Project.applyKotlinComposeAndroidPlugins(
                 }
             }
             .onEach { catalogPlugin ->
+                logger.error("$name $catalogPlugin")
                 findPlugin(catalogPlugin.alias).ifPresent {
                     pluginManager.apply(it.get().pluginId)
                 }

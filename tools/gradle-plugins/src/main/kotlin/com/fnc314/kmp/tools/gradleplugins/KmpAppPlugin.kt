@@ -1,8 +1,7 @@
 package com.fnc314.kmp.tools.gradleplugins
 
-import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
 
 /**
  * Modifies the target [KmpPlugin] so that it can provide the necessary setup for an arbitrary
@@ -10,22 +9,15 @@ import org.gradle.kotlin.dsl.configure
  */
 internal abstract class KmpAppPlugin : KmpPlugin(kmpPluginTarget = KmpPluginTarget.APP) {
     override fun Project.afterPluginApplication() {
-        extensions.configure<ApplicationAndroidComponentsExtension> {
-          finalizeDsl { dsl ->
-            dsl.namespace = ""
-          }
-        }
         versionCatalog().run {
             findPlugin("kotzilla")
                 .ifPresent {
                     pluginManager.apply(it.get().pluginId)
                 }
-            kotlinMultiplatformConfiguration {
-                sourceSets.commonMain.dependencies {
-                    findLibrary("kotzilla.sdk")
-                        .ifPresent {
-                            implementation(it.get())
-                        }
+            dependencies {
+              findLibrary("kotzilla.sdk")
+                .ifPresent {
+                  addProvider("implementation", it)
                 }
             }
         }

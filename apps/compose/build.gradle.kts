@@ -6,52 +6,57 @@ plugins {
 
 kotlin {
     sourceSets {
-        androidMain.dependencies {
-            implementation(compose.preview)
-            implementation(libs.androidx.activity.compose)
-        }
-        commonMain.dependencies {
+
+        val commonMain by creating {
+          dependencies {
             implementation(projects.components.navigation)
             implementation(projects.designSystem.widgets)
             implementation(projects.features.posts.list)
-        }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
+          }
         }
 
-        val desktopMain by getting
-        desktopMain.dependencies {
-            implementation(compose.desktop.currentOs)
-            implementation(libs.kotlinx.coroutinesSwing)
+        val commonTest by creating {
+          dependencies {
+            implementation(libs.kotlin.test)
+          }
+        }
+
+        val desktopMain by creating {
+            dependencies {
+              // implementation(compose.desktop.currentOs)
+              implementation(libs.kotlinx.coroutinesSwing)
+            }
         }
     }
 }
 
-android {
-    namespace = "com.fnc314.kmp.app.compose"
+androidComponents {
+  finalizeDsl { dsl ->
+    dsl.namespace = "com.fnc314.kmp.app.compose"
 
-    defaultConfig {
-        applicationId = "com.fnc314.kmp.app.compose.android"
-        versionCode = 1
-        versionName = "1.0"
+    dsl.defaultConfig {
+      applicationId = "com.fnc314.kmp.app.compose.android"
+      versionCode = 1
+      versionName = "1.0"
     }
 
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
+    dsl.packaging {
+      resources {
+        excludes += "/META-INF/{AL2.0,LGPL2.1}"
+      }
     }
 
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-        }
+    dsl.buildTypes {
+      getByName("release") {
+        isMinifyEnabled = false
+      }
     }
 
-    dependenciesInfo {
-        includeInApk = false
-        includeInBundle = false
+    dsl.dependenciesInfo {
+      includeInApk = false
+      includeInBundle = false
     }
+  }
 }
 
 compose.desktop {

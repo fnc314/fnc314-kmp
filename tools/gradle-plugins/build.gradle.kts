@@ -38,7 +38,7 @@ gradlePlugin {
 
 dependencies {
     compileOnly(gradleKotlinDsl())
-    implementation(libs.kotlin.gradle.plugin)
+    implementation(libs.bundles.kotlin.gradle.plugin)
     implementation(libs.bundles.agp)
     implementation(libs.kotlin.stdlib)
     implementation(libs.bundles.build.konfig)

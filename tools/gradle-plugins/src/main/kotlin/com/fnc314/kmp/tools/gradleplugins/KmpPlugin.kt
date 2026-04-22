@@ -1,5 +1,6 @@
 package com.fnc314.kmp.tools.gradleplugins
 
+import com.android.build.api.variant.KotlinMultiplatformAndroidComponentsExtension
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 import com.codingfeline.buildkonfig.gradle.BuildKonfigExtension
 import org.gradle.api.Plugin
@@ -10,7 +11,6 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
-import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
 import java.util.Properties
 
 internal sealed class KmpPlugin(
@@ -138,9 +138,9 @@ internal sealed class KmpPlugin(
      * @param config A callback into which the [com.android.build.api.dsl.CommonExtension] is a receiver
      */
     protected fun Project.configureAndroidCommonExtension(
-        config: KotlinMultiplatformExtension.() -> Unit
+        config: KotlinMultiplatformAndroidComponentsExtension.() -> Unit
     ) {
-        extensions.configure<KotlinMultiplatformExtension>(config)
+        extensions.configure<KotlinMultiplatformAndroidComponentsExtension>(config)
     }
 
     /** Invoked within [apply] before shared configurations */
@@ -159,99 +159,96 @@ internal sealed class KmpPlugin(
         project.logger.error(
           """
           | Project ${project.name} Plugin ${project.plugins.joinToString(", ")}
+          | KMP PLUGIN TARGET $kmpPluginTarget
           | Extensions ${
             project.extensions.extensionsSchema.joinToString(", ") { it.name }
           }
+          | Configurations ${project.configurations.joinToString(", ") { it.name }}
           """.trimMargin("| ")
         )
 
-        project.configureBuildKonfig {
+        if (kmpPluginTarget != KmpPluginTarget.APP) {
+          project.configureBuildKonfig {
             packageName = kmpPluginTarget.calculateNamespace(project = project)
             defaultConfigs {
-                project.rootDir
-                    .resolve("local.properties")
-                    .reader(charset = Charsets.UTF_8)
-                    .use { reader ->
-                        Properties().apply { load(reader) }
-                    }
-                    .getProperty("kotzilla.analytics.key")
-                    .let { property ->
-                        it.buildConfigField(
-                            type = STRING,
-                            name = "KOTZILLA_ANALYTICS_KEY",
-                            value = property
-                        )
-                    }
+              project.rootDir
+                .resolve("local.properties")
+                .reader(charset = Charsets.UTF_8)
+                .use { reader ->
+                  Properties().apply { load(reader) }
+                }
+                .getProperty("kotzilla.analytics.key")
+                .let { property ->
+                  it.buildConfigField(
+                    type = STRING,
+                    name = "KOTZILLA_ANALYTICS_KEY",
+                    value = property
+                  )
+                }
             }
-        }
+          }
 
-        project.kotlinExtension.apply {
+          project.kotlinMultiplatformConfiguration {
 
-        }
+            //prepareAndroidTarget()
 
-        project.kotlinMultiplatformConfiguration {
-            androidTarget()
             compilerOptions {
-                apiVersion.set(KotlinVersion.KOTLIN_2_3)
-                languageVersion.set(KotlinVersion.KOTLIN_2_3)
-                optIn.addAll(
-                    "kotlin.time.ExperimentalTime",
-                    "kotlin.ExperimentalStdlibApi",
-                    "kotlin.ExperimentalMultiplatform",
-                    "kotlin.ExperimentalUnsignedTypes",
-                    "kotlin.experimental.ExperimentalTypeInference",
-                    "kotlin.uuid.ExperimentalUuidApi",
-                    "kotlin.contracts.ExperimentalContracts",
-                )
+              apiVersion.set(KotlinVersion.KOTLIN_2_3)
+              languageVersion.set(KotlinVersion.KOTLIN_2_3)
+              optIn.addAll(
+                "kotlin.time.ExperimentalTime",
+                "kotlin.ExperimentalStdlibApi",
+                "kotlin.ExperimentalMultiplatform",
+                "kotlin.ExperimentalUnsignedTypes",
+                "kotlin.experimental.ExperimentalTypeInference",
+                "kotlin.uuid.ExperimentalUuidApi",
+                "kotlin.contracts.ExperimentalContracts",
+              )
             }
 
             prepareIOSTargets(
-                binaryBaseName = kmpPluginTarget.calculateIosTargetBinaryBaseName(project = project)
+              binaryBaseName = kmpPluginTarget.calculateIosTargetBinaryBaseName(project = project)
             )
 
             jvm(name = "desktop")
 
             prepareCommonMainSourceSets(
-                versionCatalog = project.versionCatalog()
+              versionCatalog = project.versionCatalog()
             )
 
             project.versionCatalog().run {
-                sourceSets.apply {
-                    findLibrary("androidx.ui.tooling").ifPresent {
-                        androidMain.dependencies {
-                            implementation(it.get())
-                        }
-                        // project.dependencies.addProvider("debugImplementation", it)
-                    }
+              sourceSets.apply {
+                findLibrary("androidx.ui.tooling").ifPresent {
+                  androidMain.dependencies {
+                    implementation(it.get())
+                  }
+                  // project.dependencies.addProvider("debugImplementation", it)
                 }
+              }
             }
-        }
+          }
 
-        project.configureAndroidCommonExtension {
-//            finalizeDsl { dsl ->
-//              dsl.namespace = kmpPluginTarget.calculateNamespace(project = project)
-//
-//              project.versionCatalog().run {
-//                findVersion("android.sdk.compile").ifPresent {
-//                  dsl.compileSdk {
-//                    version = release(it.requiredVersion.toInt())
-//                  }
-//                }
-//                findVersion("android.sdk.min").ifPresent {
-//                  dsl.minSdk = it.requiredVersion.toInt()
-//                }
-//              }
-//
-//              dsl.enableCoreLibraryDesugaring = true
-//            }
+          project.configureAndroidCommonExtension {
+            finalizeDsl { dsl ->
+              dsl.namespace = kmpPluginTarget.calculateNamespace(project = project)
+
+              project.versionCatalog().run {
+                findVersion("android.sdk.compile").ifPresent {
+                  dsl.compileSdk {
+                    version = release(it.requiredVersion.toInt())
+                  }
+                }
+              }
+            }
+          }
         }
 
         project.versionCatalog().run {
             findBundle("kotlin.libs").ifPresent { bundle ->
-                bundle.get().onEach {
-                    project.dependencies.add(
-                        "implementation",
-                        it
+                bundle.orNull?.onEach {
+                    project.dependencies.addProvider(
+                      if (kmpPluginTarget == KmpPluginTarget.APP) { "implementation" } else { "commonMainImplementation" },
+                      project.provider { it }
                     )
                 }
             }
