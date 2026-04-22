@@ -2,14 +2,14 @@ pluginManagement {
     includeBuild("tools")
 
     plugins {
-        id("com.android.settings") version("8.13.1")
-        id("com.android.library") version("8.13.1")
-        id("com.android.application") version("8.13.1")
-        id("com.android.kotlin.multiplatform.library") version("8.13.1")
+        id("com.android.settings") version("9.2.0")
+        id("com.android.library") version("9.2.0")
+        id("com.android.application") version("9.2.0")
+        id("com.android.kotlin.multiplatform.library") version("9.2.0")
         id("com.fnc314.gradle.plugins.settings.project-collections-gradle-settings-plugin") version("2.0.0")
-        id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-        id("org.jetbrains.compose.hot-reload") version("1.0.0-beta04")
-        id("org.jetbrains.compose") version("1.8.2")
+        id("org.gradle.toolchains.foojay-resolver-convention") version("1.0.0")
+        id("org.jetbrains.compose.hot-reload") version("1.0.0")
+        id("org.jetbrains.compose") version("1.10.3")
         id("org.jetbrains.kotlin.android") version(embeddedKotlinVersion)
         id("org.jetbrains.kotlin.jvm") version(embeddedKotlinVersion)
         id("org.jetbrains.kotlin.multiplatform") version(embeddedKotlinVersion)
@@ -21,7 +21,7 @@ pluginManagement {
         eachPlugin {
             when {
                 requested.id.namespace?.startsWith("org.jetbrains.kotlin") == true -> useVersion(embeddedKotlinVersion)
-                requested.id.id.startsWith("com.android") -> useVersion("8.13.1")
+                requested.id.id.startsWith("com.android") -> useVersion("9.2.0")
                 else -> useVersion(requested.version)
             }
         }
@@ -31,13 +31,13 @@ pluginManagement {
 plugins {
     id("com.fnc314.gradle.plugins.settings.project-collections-gradle-settings-plugin") version("2.0.0")
     id("org.gradle.toolchains.foojay-resolver-convention") version("1.0.0")
-    id("com.android.settings") version("8.13.1")
+    id("com.android.settings") version("9.2.0")
 }
 
 android {
-    compileSdk = 36
+    compileSdk = 37
     minSdk = 24
-    buildToolsVersion = "36.1.0"
+    buildToolsVersion = "37.0.0"
 }
 
 projectCollections {

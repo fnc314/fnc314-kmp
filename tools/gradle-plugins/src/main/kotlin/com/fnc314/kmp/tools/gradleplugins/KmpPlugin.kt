@@ -1,9 +1,8 @@
 package com.fnc314.kmp.tools.gradleplugins
 
-import com.android.build.gradle.BaseExtension
+import com.android.build.api.variant.KotlinMultiplatformAndroidComponentsExtension
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 import com.codingfeline.buildkonfig.gradle.BuildKonfigExtension
-import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
@@ -26,8 +25,8 @@ internal sealed class KmpPlugin(
             @OptIn(ExperimentalKotlinGradlePluginApi::class)
             compilerOptions {
                 jvmTarget.set(JvmTarget.JVM_17)
-                apiVersion.set(KotlinVersion.KOTLIN_2_2)
-                languageVersion.set(KotlinVersion.KOTLIN_2_2)
+                apiVersion.set(KotlinVersion.KOTLIN_2_3)
+                languageVersion.set(KotlinVersion.KOTLIN_2_3)
                 optIn.addAll(
                     "kotlin.time.ExperimentalTime",
                     "kotlin.ExperimentalStdlibApi",
@@ -134,14 +133,14 @@ internal sealed class KmpPlugin(
     }
 
     /**
-     * Configures the [BaseExtension] from the Android Gradle Plugins (Library or Application)
+     * Configures the [com.android.build.api.dsl.CommonExtension] from the Android Gradle Plugins (Library or Application)
      * @receiver A [Project] instance
-     * @param config A callback into which the [BaseExtension] is a receiver
+     * @param config A callback into which the [com.android.build.api.dsl.CommonExtension] is a receiver
      */
-    protected fun Project.configureAndroidBaseExtension(
-        config: BaseExtension.() -> Unit
+    protected fun Project.configureAndroidCommonExtension(
+        config: KotlinMultiplatformAndroidComponentsExtension.() -> Unit
     ) {
-        extensions.configure<BaseExtension>(config)
+        extensions.configure<KotlinMultiplatformAndroidComponentsExtension>(config)
     }
 
     /** Invoked within [apply] before shared configurations */
@@ -156,6 +155,10 @@ internal sealed class KmpPlugin(
         project.applyKotlinComposeAndroidPlugins(
             kmpPluginTarget = kmpPluginTarget
         )
+
+        project.plugins.forEach {
+          project.logger.error("Project ${project.name} Plugin $it")
+        }
 
         project.configureBuildKonfig {
             packageName = kmpPluginTarget.calculateNamespace(project = project)
@@ -178,9 +181,10 @@ internal sealed class KmpPlugin(
         }
 
         project.kotlinMultiplatformConfiguration {
+            androidTarget()
             compilerOptions {
-                apiVersion.set(KotlinVersion.KOTLIN_2_2)
-                languageVersion.set(KotlinVersion.KOTLIN_2_2)
+                apiVersion.set(KotlinVersion.KOTLIN_2_3)
+                languageVersion.set(KotlinVersion.KOTLIN_2_3)
                 optIn.addAll(
                     "kotlin.time.ExperimentalTime",
                     "kotlin.ExperimentalStdlibApi",
@@ -191,7 +195,6 @@ internal sealed class KmpPlugin(
                     "kotlin.contracts.ExperimentalContracts",
                 )
             }
-            prepareAndroidTarget()
 
             prepareIOSTargets(
                 binaryBaseName = kmpPluginTarget.calculateIosTargetBinaryBaseName(project = project)
@@ -209,27 +212,28 @@ internal sealed class KmpPlugin(
                         androidMain.dependencies {
                             implementation(it.get())
                         }
-                        project.dependencies.addProvider("debugImplementation", it)
+                        // project.dependencies.addProvider("debugImplementation", it)
                     }
                 }
             }
         }
 
-        project.configureAndroidBaseExtension {
-            namespace = kmpPluginTarget.calculateNamespace(project = project)
+        project.configureAndroidCommonExtension {
+            finalizeDsl { dsl ->
+              dsl.namespace = kmpPluginTarget.calculateNamespace(project = project)
 
-            project.versionCatalog().run {
+              project.versionCatalog().run {
                 findVersion("android.sdk.compile").ifPresent {
-                    compileSdkVersion = "android-${it.requiredVersion}"
+                  dsl.compileSdk {
+                    version = release(it.requiredVersion.toInt())
+                  }
                 }
                 findVersion("android.sdk.min").ifPresent {
-                    defaultConfig.minSdk = it.requiredVersion.toInt()
+                  dsl.minSdk = it.requiredVersion.toInt()
                 }
-            }
+              }
 
-            compileOptions.apply {
-                sourceCompatibility = JavaVersion.VERSION_17
-                targetCompatibility = JavaVersion.VERSION_17
+              dsl.enableCoreLibraryDesugaring = true
             }
         }
 

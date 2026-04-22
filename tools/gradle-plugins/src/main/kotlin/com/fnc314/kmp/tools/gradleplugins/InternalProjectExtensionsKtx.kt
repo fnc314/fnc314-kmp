@@ -32,7 +32,9 @@ internal fun Project.applyKotlinComposeAndroidPlugins(
                     VersionCatalogPlugins.COMPOSE_HOT_RELOAD, ->
                         kmpPluginTarget == KmpPluginTarget.APP
 
-                    VersionCatalogPlugins.ANDROID_LIBRARY ->
+                    VersionCatalogPlugins.ANDROID_LIBRARY -> false
+
+                    VersionCatalogPlugins.ANDROID_LIBRARY_MULTIPLATFORM ->
                         kmpPluginTarget != KmpPluginTarget.APP
 
                     else -> true
@@ -55,7 +57,7 @@ internal enum class VersionCatalogPlugins(
 ) {
     ANDROID_APPLICATION("androidApplication"),
     ANDROID_LIBRARY("androidLibrary"),
-    // ANDROID_LIBRARY_MULTIPLATFORM("androidMultiplatformLibrary"),
+    ANDROID_LIBRARY_MULTIPLATFORM("androidMultiplatformLibrary"),
     COMPOSE_COMPILER("composeCompiler"),
     COMPOSE_MULTIPLATFORM("composeMultiplatform"),
     COMPOSE_HOT_RELOAD("composeHotReload"),

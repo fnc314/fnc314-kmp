@@ -17,7 +17,7 @@ ij_smart_tabs = false
 ij_visual_guides = 120
 ij_wrap_on_typing = false
 
-[{*.toml}]
+[*.toml]
 tab_width = 2
 indent_size = 2
 indent_style = space

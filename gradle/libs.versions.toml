@@ -1,174 +1,175 @@
 [versions]
-    agp = "9.1.0"
-    agp-lint = "31.12.0"
-    android-sdk-compile = "36"
-    android-sdk-min = "24"
-    android-sdk-target = "36"
-    android-compileSdk = "36"
-    android-minSdk = "24"
-    android-targetSdk = "36"
-    androidx-activity = "1.13.0"
-    androidx-appcompat = "1.7.1"
-    androidx-constraintlayout = "2.2.1"
-    androidx-core = "1.18.0"
-    androidx-espresso = "3.7.0"
-    androidx-lifecycle = "2.10.0"
-    androidx-testExt = "1.3.0"
-    androidx-compose = "1.10.4"
-    androidx-compose-material3 = "1.4.0"
-    androidx-compose-material3-adaptive = "1.2.0"
-    androidx-ui-tooling = "1.10.5"
-    jetbrains-material3-compose = "1.9.0"
-    composeHotReload = "1.0.0"
-    composeMultiplatformGradlePlugin = "1.10.3"
-    composeMultiplatformMaterial3 = "1.9.0"
-    composeMaterialIconsExtended = "1.7.3"
-    junit = "4.13.2"
-    kotlin = "2.3.20"
-    kotlinx-coroutines = "1.10.2"
-    kotlinx-serialization-json = "1.10.0"
-    ktor = "3.4.1"
-    koin = "4.2.0"
-    kotzilla = "2.0.9"
-    napier = "2.7.1"
-    build-konfig = "0.17.1"
-    com-fnc314-gradle-plugins-settings-project-collections = "3.0.0"
+  agp = "9.2.0"
+  agp-lint = "31.12.0"
+  android-sdk-compile = "37"
+  android-sdk-min = "24"
+  android-sdk-target = "37"
+  android-compileSdk = "37"
+  android-minSdk = "24"
+  android-targetSdk = "37"
+  androidx-activity = "1.13.0"
+  androidx-appcompat = "1.7.1"
+  androidx-constraintlayout = "2.2.1"
+  androidx-core = "1.18.0"
+  androidx-espresso = "3.7.0"
+  androidx-lifecycle = "2.10.0"
+  androidx-testExt = "1.3.0"
+  androidx-compose = "1.10.4"
+  androidx-compose-material3 = "1.4.0"
+  androidx-compose-material3-adaptive = "1.2.0"
+  androidx-ui-tooling = "1.10.6"
+  jetbrains-material3-compose = "1.9.0"
+  composeHotReload = "1.0.0"
+  composeMultiplatformGradlePlugin = "1.10.3"
+  composeMultiplatformMaterial3 = "1.9.0"
+  composeMaterialIconsExtended = "1.7.3"
+  junit = "4.13.2"
+  kotlin = "2.3.20"
+  kotlinx-coroutines = "1.10.2"
+  kotlinx-serialization-json = "1.11.0"
+  ktor = "3.4.2"
+  koin = "4.2.1"
+  kotzilla = "2.1.3"
+  napier = "2.7.1"
+  build-konfig = "0.18.0"
+  com-fnc314-gradle-plugins-settings-project-collections = "3.0.0"
 
 [libraries]
-    agp = { module = "com.android.tools.build:gradle", version.ref = "agp" }
-    agp-api = { module = "com.android.tools.build:gradle-api", version.ref = "agp" }
-    agp-lint = { module = "com.android.tools.build:gradle-lint-api", version.ref = "agp-lint" }
-    agp-settings-api = { module = "com.android.tools.build:gradle-settings-api", version.ref = "agp" }
-    compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "composeMultiplatformGradlePlugin" }
-    compose-components-ui-tooling-preview = { module = "org.jetbrains.compose.components:components-ui-tooling-preview", version.ref = "composeMultiplatformGradlePlugin" }
-    compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "composeMultiplatformGradlePlugin" }
-    compose-material = { module = "org.jetbrains.compose.material:material", version.ref = "composeMultiplatformGradlePlugin" }
-    compose-material-extended-icons = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "composeMaterialIconsExtended" }
-    compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "composeMultiplatformMaterial3" }
-    compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "composeMultiplatformGradlePlugin" }
-    compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatformGradlePlugin" }
-    compose-ui-util = { module = "org.jetbrains.compose.ui:ui-util", version.ref = "composeMultiplatformGradlePlugin" }
-    koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
-    koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-    koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
-    koin-androidx-lifecycle = { module = "io.insert-koin:koin-androidx-lifecycle", version.ref = "koin" }
-    koin-androidx-navigation = { module = "io.insert-koin:koin-androidx-navigation", version.ref = "koin" }
-    koin-androidx-navigation-compose = { module = "io.insert-koin:koin-androidx-navigation-compose", version.ref = "koin" }
-    koin-androidx-startup = { module = "io.insert-koin:koin-androidx-startup", version.ref = "koin" }
-    koin-androidx-viewmodel = { module = "io.insert-koin:koin-androidx-viewmodel", version.ref = "koin" }
-    koin-androidx-viewmodel-compose = { module = "io.insert-koin:koin-androidx-viewmodel-compose", version.ref = "koin" }
-    koin-androidx-workmanager = { module = "io.insert-koin:koin-androidx-workmanager", version.ref = "koin" }
-    koin-androidx-workmanager-compose = { module = "io.insert-koin:koin-androidx-workmanager-compose", version.ref = "koin" }
-    koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
-    koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
-    koin-compose-viewmodel-navigation = { module = "io.insert-koin:koin-compose-viewmodel-navigation", version.ref = "koin" }
-    koin-ios = { module = "io.insert-koin:koin-ios", version.ref = "koin" }
-    koin-js = { module = "io.insert-koin:koin-js", version.ref = "koin" }
-    koin-core-ext = { module = "io.insert-koin:koin-core-ext", version.ref = "koin" }
-    koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
-    koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin" }
-    # koin-test-junit5 = { module = "io.insert-koin:koin-test-junit5", version.ref = "koin" }
-    kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-    kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
-    kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
-    kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-    kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
-    # Ktor Client - Core
-    ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
-    # Ktor Client Engines (add the ones you need for your targets)
-    ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" } # For JVM, Android
-    ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" } # For iOS, macOS, watchOS, tvOS
-    ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" } # For Javascript (Browser and Node.js)
-    # ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" } # Alternative for Android/JVM
-    # ktor-client-java = { module = "io.ktor:ktor-client-java", version.ref = "ktor" } # Alternative for JVM
-    # Ktor Client Content Negotiation & Serialization
-    ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
-    ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
-    kotzilla-sdk = { group = "io.kotzilla", name = "kotzilla-sdk", version.ref = "kotzilla" }
-    kotzilla-sdk-ktor3 = {group = "io.kotzilla", name = "kotzilla-sdk-ktor3", version.ref = "kotzilla" }
-    junit = { module = "junit:junit", version.ref = "junit" }
-    androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
-    androidx-testExt-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-testExt" }
-    androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-espresso" }
-    androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
-    androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
-    androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
-    androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
-    androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
-    androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "androidx-compose-material3" }
-    androidx-compose-material3-windowSizeClass = { module = "androidx.compose.material3:material3-window-size-class", version.ref = "androidx-compose-material3" }
-    androidx-compose-material3-adaptive = { module = "androidx.compose.material3.adaptive:adaptive", version.ref = "androidx-compose-material3-adaptive" }
-    androidx-compose-material3-adaptive-layout = { module = "androidx.compose.material3.adaptive:adaptive-layout", version.ref = "androidx-compose-material3-adaptive" }
-    androidx-compose-material3-adaptive-navigation = { module = "androidx.compose.material3.adaptive:adaptive-navigation", version.ref = "androidx-compose-material3-adaptive" }
-    kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
-    kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
-    androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-ui-tooling" }
-    napier = { module = "io.github.aakira:napier", version.ref = "napier" }
-    build-konfig = { module = "com.codingfeline.buildkonfig:buildkonfig-gradle-plugin", version.ref = "build-konfig" }
-    build-konfig-compiler = { module = "com.codingfeline.buildkonfig:buildkonfig-compiler", version.ref = "build-konfig" }
-    com-fnc314-gradle-plugins-settings-project-collections = { module = "com.fnc314.gradle.plugins.settings:project-collections-gradle-settings-plugin", version.ref = "com-fnc314-gradle-plugins-settings-project-collections" }
+  agp = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+  agp-api = { module = "com.android.tools.build:gradle-api", version.ref = "agp" }
+  agp-lint = { module = "com.android.tools.build:gradle-lint-api", version.ref = "agp-lint" }
+  agp-settings-api = { module = "com.android.tools.build:gradle-settings-api", version.ref = "agp" }
+  compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "composeMultiplatformGradlePlugin" }
+  compose-components-ui-tooling-preview = { module = "org.jetbrains.compose.components:components-ui-tooling-preview", version.ref = "composeMultiplatformGradlePlugin" }
+  compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "composeMultiplatformGradlePlugin" }
+  compose-material = { module = "org.jetbrains.compose.material:material", version.ref = "composeMultiplatformGradlePlugin" }
+  compose-material-extended-icons = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "composeMaterialIconsExtended" }
+  compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "composeMultiplatformMaterial3" }
+  compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "composeMultiplatformGradlePlugin" }
+  compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatformGradlePlugin" }
+  compose-ui-util = { module = "org.jetbrains.compose.ui:ui-util", version.ref = "composeMultiplatformGradlePlugin" }
+  koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
+  koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+  koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+  koin-androidx-lifecycle = { module = "io.insert-koin:koin-androidx-lifecycle", version.ref = "koin" }
+  koin-androidx-navigation = { module = "io.insert-koin:koin-androidx-navigation", version.ref = "koin" }
+  koin-androidx-navigation-compose = { module = "io.insert-koin:koin-androidx-navigation-compose", version.ref = "koin" }
+  koin-androidx-startup = { module = "io.insert-koin:koin-androidx-startup", version.ref = "koin" }
+  koin-androidx-viewmodel = { module = "io.insert-koin:koin-androidx-viewmodel", version.ref = "koin" }
+  koin-androidx-viewmodel-compose = { module = "io.insert-koin:koin-androidx-viewmodel-compose", version.ref = "koin" }
+  koin-androidx-workmanager = { module = "io.insert-koin:koin-androidx-workmanager", version.ref = "koin" }
+  koin-androidx-workmanager-compose = { module = "io.insert-koin:koin-androidx-workmanager-compose", version.ref = "koin" }
+  koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
+  koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
+  koin-compose-viewmodel-navigation = { module = "io.insert-koin:koin-compose-viewmodel-navigation", version.ref = "koin" }
+  koin-ios = { module = "io.insert-koin:koin-ios", version.ref = "koin" }
+  koin-js = { module = "io.insert-koin:koin-js", version.ref = "koin" }
+  koin-core-ext = { module = "io.insert-koin:koin-core-ext", version.ref = "koin" }
+  koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
+  koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin" }
+  # koin-test-junit5 = { module = "io.insert-koin:koin-test-junit5", version.ref = "koin" }
+  kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+  kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+  kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+  kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+  kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+  # Ktor Client - Core
+  ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+  # Ktor Client Engines (add the ones you need for your targets)
+  ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" } # For JVM, Android
+  ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" } # For iOS, macOS, watchOS, tvOS
+  ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" } # For Javascript (Browser and Node.js)
+  # ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" } # Alternative for Android/JVM
+  # ktor-client-java = { module = "io.ktor:ktor-client-java", version.ref = "ktor" } # Alternative for JVM
+  # Ktor Client Content Negotiation & Serialization
+  ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+  ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+  kotzilla-sdk = { group = "io.kotzilla", name = "kotzilla-sdk", version.ref = "kotzilla" }
+  kotzilla-sdk-ktor3 = {group = "io.kotzilla", name = "kotzilla-sdk-ktor3", version.ref = "kotzilla" }
+  junit = { module = "junit:junit", version.ref = "junit" }
+  androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
+  androidx-testExt-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-testExt" }
+  androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-espresso" }
+  androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+  androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
+  androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
+  androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
+  androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+  androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "androidx-compose-material3" }
+  androidx-compose-material3-windowSizeClass = { module = "androidx.compose.material3:material3-window-size-class", version.ref = "androidx-compose-material3" }
+  androidx-compose-material3-adaptive = { module = "androidx.compose.material3.adaptive:adaptive", version.ref = "androidx-compose-material3-adaptive" }
+  androidx-compose-material3-adaptive-layout = { module = "androidx.compose.material3.adaptive:adaptive-layout", version.ref = "androidx-compose-material3-adaptive" }
+  androidx-compose-material3-adaptive-navigation = { module = "androidx.compose.material3.adaptive:adaptive-navigation", version.ref = "androidx-compose-material3-adaptive" }
+  kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
+  kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+  androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-ui-tooling" }
+  napier = { module = "io.github.aakira:napier", version.ref = "napier" }
+  build-konfig = { module = "com.codingfeline.buildkonfig:buildkonfig-gradle-plugin", version.ref = "build-konfig" }
+  build-konfig-compiler = { module = "com.codingfeline.buildkonfig:buildkonfig-compiler", version.ref = "build-konfig" }
+  com-fnc314-gradle-plugins-settings-project-collections = { module = "com.fnc314.gradle.plugins.settings:project-collections-gradle-settings-plugin", version.ref = "com-fnc314-gradle-plugins-settings-project-collections" }
 
 [bundles]
-    agp = [
-        "agp", "agp-api"
-    ]
-    androidx-compose-material3 = [
-        "androidx-compose-material3",
-        "androidx-compose-material3-windowSizeClass",
-    ]
-    androidx-compose-material3-adaptive = [
-        "androidx-compose-material3-adaptive",
-        "androidx-compose-material3-adaptive-layout",
-        "androidx-compose-material3-adaptive-navigation",
-    ]
-    build-konfig = [
-        "build-konfig", "build-konfig-compiler"
-    ]
-    compose = [
-        "compose-components-resources", "compose-components-ui-tooling-preview",
-        "compose-foundation",
-        "compose-material", "compose-material-extended-icons", "compose-material3",
-        "compose-runtime",
-        "compose-ui", "compose-ui-util",
-    ]
-    koin = [
-        "koin-core",
-        "koin-compose", "koin-compose-viewmodel", "koin-compose-viewmodel-navigation",
-    ]
-    ktor-client-jvm = [
-        "ktor-client-core",
-        "ktor-client-cio", # For JVM, Android
-        "ktor-client-content-negotiation",
-        "ktor-serialization-kotlinx-json",
-    ]
-    ktor-client-ios = [
-        "ktor-client-core",
-        "ktor-client-darwin", # For iOS, macOS, watchOS, tvOS
-        "ktor-client-content-negotiation",
-    ]
-    ktor-client-web = [
-        "ktor-client-core",
-        "ktor-client-js", # For JavaScript (Browser and Node.js)
-        "ktor-client-content-negotiation"
-    ]
-    kotlin-libs = [
-        "kotlin-stdlib", "kotlin-reflect"
-    ]
+  agp = [
+    "agp", "agp-api"
+  ]
+  androidx-compose-material3 = [
+    "androidx-compose-material3",
+    "androidx-compose-material3-windowSizeClass",
+  ]
+  androidx-compose-material3-adaptive = [
+    "androidx-compose-material3-adaptive",
+    "androidx-compose-material3-adaptive-layout",
+    "androidx-compose-material3-adaptive-navigation",
+  ]
+  build-konfig = [
+    "build-konfig", "build-konfig-compiler"
+  ]
+  compose = [
+    "compose-components-resources", "compose-components-ui-tooling-preview",
+    "compose-foundation",
+    "compose-material", "compose-material-extended-icons", "compose-material3",
+    "compose-runtime",
+    "compose-ui", "compose-ui-util",
+  ]
+  koin = [
+    "koin-core",
+    "koin-compose", "koin-compose-viewmodel", "koin-compose-viewmodel-navigation",
+  ]
+  ktor-client-jvm = [
+    "ktor-client-core",
+    "ktor-client-cio", # For JVM, Android
+    "ktor-client-content-negotiation",
+    "ktor-serialization-kotlinx-json",
+  ]
+  ktor-client-ios = [
+    "ktor-client-core",
+    "ktor-client-darwin", # For iOS, macOS, watchOS, tvOS
+    "ktor-client-content-negotiation",
+  ]
+  ktor-client-web = [
+    "ktor-client-core",
+    "ktor-client-js", # For JavaScript (Browser and Node.js)
+    "ktor-client-content-negotiation"
+  ]
+  kotlin-libs = [
+    "kotlin-stdlib", "kotlin-reflect"
+  ]
 
 [plugins]
-    androidApplication = { id = "com.android.application", version.ref = "agp" }
-    androidLibrary = { id = "com.android.library", version.ref = "agp" }
-    androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
-    composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload" }
-    composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatformGradlePlugin" }
-    composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-    kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-    kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-    kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-    kotzilla = { id = "io.kotzilla.kotzilla-plugin", version.ref = "kotzilla" }
-    tools-gradle-plugins-kmp-app = { id = "com.fnc314.kmp.tools.gradle.plugin.app" }
-    tools-gradle-plugins-kmp-component = { id = "com.fnc314.kmp.tools.gradle.plugin.component" }
-    tools-gradle-plugins-kmp-feature = { id = "com.fnc314.kmp.tools.gradle.plugin.feature" }
-    tools-gradle-plugins-kmp-design-system = { id = "com.fnc314.kmp.tools.gradle.plugin.design-system" }
-    build-konfig = { id = "com.codingfeline.buildkonfig", version.ref = "build-konfig" }
-    com-fnc314-gradle-plugins-settings-project-collections = { id = "com.fnc314.gradle.plugins.settings.project-collections-gradle-settings-plugin", version.ref = "com-fnc314-gradle-plugins-settings-project-collections" }
+  androidApplication = { id = "com.android.application", version.ref = "agp" }
+  androidLibrary = { id = "com.android.library", version.ref = "agp" }
+  androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+  composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload" }
+  composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatformGradlePlugin" }
+  composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+  kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+  kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+  kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+  kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+  kotzilla = { id = "io.kotzilla.kotzilla-plugin", version.ref = "kotzilla" }
+  tools-gradle-plugins-kmp-app = { id = "com.fnc314.kmp.tools.gradle.plugin.app" }
+  tools-gradle-plugins-kmp-component = { id = "com.fnc314.kmp.tools.gradle.plugin.component" }
+  tools-gradle-plugins-kmp-feature = { id = "com.fnc314.kmp.tools.gradle.plugin.feature" }
+  tools-gradle-plugins-kmp-design-system = { id = "com.fnc314.kmp.tools.gradle.plugin.design-system" }
+  build-konfig = { id = "com.codingfeline.buildkonfig", version.ref = "build-konfig" }
+  com-fnc314-gradle-plugins-settings-project-collections = { id = "com.fnc314.gradle.plugins.settings.project-collections-gradle-settings-plugin", version.ref = "com-fnc314-gradle-plugins-settings-project-collections" }
