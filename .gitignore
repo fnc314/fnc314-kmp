@@ -11,8 +11,14 @@ captures
 .externalNativeBuild
 .cxx
 *.xcodeproj/*
-!*.xcodeproj/project.pbxproj
-!*.xcodeproj/xcshareddata/
-!*.xcodeproj/project.xcworkspace/
-!*.xcworkspace/contents.xcworkspacedata
+!**.xcodeproj/project.pbxproj
+!**.xcodeproj/xcshareddata/
+!**.xcodeproj/project.xcworkspace/
+!**.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
+logs
+
+# Kotzilla
+apps/compose/kotzilla.json
+apps/compose/src/main/assets/kotzilla.key
+**/bin
