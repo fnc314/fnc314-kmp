@@ -1,6 +1,5 @@
 package com.fnc314.kmp.tools.gradleplugins
 
-import com.android.build.api.variant.KotlinMultiplatformAndroidComponentsExtension
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 import com.codingfeline.buildkonfig.gradle.BuildKonfigExtension
 import org.gradle.api.Plugin
@@ -11,6 +10,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
 import java.util.Properties
 
 internal sealed class KmpPlugin(
@@ -138,9 +138,9 @@ internal sealed class KmpPlugin(
      * @param config A callback into which the [com.android.build.api.dsl.CommonExtension] is a receiver
      */
     protected fun Project.configureAndroidCommonExtension(
-        config: KotlinMultiplatformAndroidComponentsExtension.() -> Unit
+        config: KotlinMultiplatformExtension.() -> Unit
     ) {
-        extensions.configure<KotlinMultiplatformAndroidComponentsExtension>(config)
+        extensions.configure<KotlinMultiplatformExtension>(config)
     }
 
     /** Invoked within [apply] before shared configurations */
@@ -156,9 +156,14 @@ internal sealed class KmpPlugin(
             kmpPluginTarget = kmpPluginTarget
         )
 
-        project.plugins.forEach {
-          project.logger.error("Project ${project.name} Plugin $it")
-        }
+        project.logger.error(
+          """
+          | Project ${project.name} Plugin ${project.plugins.joinToString(", ")}
+          | Extensions ${
+            project.extensions.extensionsSchema.joinToString(", ") { it.name }
+          }
+          """.trimMargin("| ")
+        )
 
         project.configureBuildKonfig {
             packageName = kmpPluginTarget.calculateNamespace(project = project)
@@ -178,6 +183,10 @@ internal sealed class KmpPlugin(
                         )
                     }
             }
+        }
+
+        project.kotlinExtension.apply {
+
         }
 
         project.kotlinMultiplatformConfiguration {
@@ -219,22 +228,22 @@ internal sealed class KmpPlugin(
         }
 
         project.configureAndroidCommonExtension {
-            finalizeDsl { dsl ->
-              dsl.namespace = kmpPluginTarget.calculateNamespace(project = project)
-
-              project.versionCatalog().run {
-                findVersion("android.sdk.compile").ifPresent {
-                  dsl.compileSdk {
-                    version = release(it.requiredVersion.toInt())
-                  }
-                }
-                findVersion("android.sdk.min").ifPresent {
-                  dsl.minSdk = it.requiredVersion.toInt()
-                }
-              }
-
-              dsl.enableCoreLibraryDesugaring = true
-            }
+//            finalizeDsl { dsl ->
+//              dsl.namespace = kmpPluginTarget.calculateNamespace(project = project)
+//
+//              project.versionCatalog().run {
+//                findVersion("android.sdk.compile").ifPresent {
+//                  dsl.compileSdk {
+//                    version = release(it.requiredVersion.toInt())
+//                  }
+//                }
+//                findVersion("android.sdk.min").ifPresent {
+//                  dsl.minSdk = it.requiredVersion.toInt()
+//                }
+//              }
+//
+//              dsl.enableCoreLibraryDesugaring = true
+//            }
         }
 
         project.versionCatalog().run {
