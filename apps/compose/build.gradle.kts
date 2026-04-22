@@ -1,4 +1,7 @@
+@file:OptIn(ExperimentalKotlinGradlePluginApi::class)
+
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
     alias(libs.plugins.tools.gradle.plugins.kmp.app)
@@ -6,24 +9,18 @@ plugins {
 
 kotlin {
     sourceSets {
-
-        val commonMain by creating {
-          dependencies {
+        commonMain.dependencies {
             implementation(projects.components.navigation)
             implementation(projects.designSystem.widgets)
             implementation(projects.features.posts.list)
-          }
         }
 
-        val commonTest by creating {
-          dependencies {
+        commonTest.dependencies {
             implementation(libs.kotlin.test)
-          }
         }
 
-        val desktopMain by creating {
+        val desktopMain by getting {
             dependencies {
-              // implementation(compose.desktop.currentOs)
               implementation(libs.kotlinx.coroutinesSwing)
             }
         }

@@ -29,14 +29,14 @@ internal fun Project.applyKotlinComposeAndroidPlugins(
             .filter {
                 when (it) {
                     VersionCatalogPlugins.BUILD_KONFIG ->
-                        kmpPluginTarget != KmpPluginTarget.APP
+                        kmpPluginTarget != KmpPluginTarget.APP || project.name == "compose"
 
                     VersionCatalogPlugins.ANDROID_APPLICATION,
                     VersionCatalogPlugins.COMPOSE_HOT_RELOAD, ->
                         kmpPluginTarget == KmpPluginTarget.APP
 
                     VersionCatalogPlugins.KOTLIN_MULTIPLATFORM ->
-                        kmpPluginTarget != KmpPluginTarget.APP
+                        kmpPluginTarget != KmpPluginTarget.APP || project.name == "compose"
 
                     VersionCatalogPlugins.ANDROID_LIBRARY -> false
 
@@ -62,13 +62,13 @@ internal fun Project.applyKotlinComposeAndroidPlugins(
 internal enum class VersionCatalogPlugins(
     val alias: String
 ) {
+    KOTLIN_MULTIPLATFORM("kotlinMultiplatform"),
     ANDROID_APPLICATION("androidApplication"),
     ANDROID_LIBRARY("androidLibrary"),
     ANDROID_LIBRARY_MULTIPLATFORM("androidMultiplatformLibrary"),
     COMPOSE_COMPILER("composeCompiler"),
     COMPOSE_MULTIPLATFORM("composeMultiplatform"),
     COMPOSE_HOT_RELOAD("composeHotReload"),
-    KOTLIN_MULTIPLATFORM("kotlinMultiplatform"),
     KOTLIN_PLUGIN_SERIALIZATION("kotlin.plugin.serialization"),
     BUILD_KONFIG("build.konfig"),
     ;

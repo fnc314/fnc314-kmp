@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-        android:name="com.fnc314.kmp.app.android.KmpApp"
+        android:name="com.fnc314.kmp.app.compose.KmpApp"
         android:allowBackup="true"
         android:icon="@mipmap/fnc314_kmp_launcher"
         android:label="@string/app_name"
@@ -13,7 +13,7 @@
         <activity
             android:exported="true"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|mnc|colorMode|density|fontScale|fontWeightAdjustment|keyboard|layoutDirection|locale|mcc|navigation|smallestScreenSize|touchscreen|uiMode"
-            android:name="com.fnc314.kmp.app.android.MainActivity"
+            android:name="com.fnc314.kmp.app.compose.MainActivity"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

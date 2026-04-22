@@ -118,7 +118,9 @@ internal sealed class KmpPlugin(
     protected fun Project.kotlinMultiplatformConfiguration(
         config: KotlinMultiplatformExtension.() -> Unit
     ) {
-        extensions.configure<KotlinMultiplatformExtension>(config)
+        extensions.findByType(KotlinMultiplatformExtension::class.java)?.let {
+            config(it)
+        }
     }
 
     /**
@@ -129,7 +131,9 @@ internal sealed class KmpPlugin(
     protected fun Project.configureBuildKonfig(
         config: BuildKonfigExtension.() -> Unit
     ) {
-        extensions.configure<BuildKonfigExtension>(config)
+        extensions.findByType(BuildKonfigExtension::class.java)?.let {
+            config(it)
+        }
     }
 
     /**
@@ -167,8 +171,9 @@ internal sealed class KmpPlugin(
           """.trimMargin("| ")
         )
 
-        if (kmpPluginTarget != KmpPluginTarget.APP) {
+        if (kmpPluginTarget != KmpPluginTarget.AGGREGATE) {
           project.configureBuildKonfig {
+            exposeObjectWithName = "BuildKonfig"
             packageName = kmpPluginTarget.calculateNamespace(project = project)
             defaultConfigs {
               project.rootDir
@@ -190,7 +195,25 @@ internal sealed class KmpPlugin(
 
           project.kotlinMultiplatformConfiguration {
 
-            //prepareAndroidTarget()
+            if (kmpPluginTarget == KmpPluginTarget.APP) {
+              androidTarget {
+                @OptIn(ExperimentalKotlinGradlePluginApi::class)
+                compilerOptions {
+                  jvmTarget.set(JvmTarget.JVM_17)
+                  apiVersion.set(KotlinVersion.KOTLIN_2_3)
+                  languageVersion.set(KotlinVersion.KOTLIN_2_3)
+                  optIn.addAll(
+                    "kotlin.time.ExperimentalTime",
+                    "kotlin.ExperimentalStdlibApi",
+                    "kotlin.ExperimentalMultiplatform",
+                    "kotlin.ExperimentalUnsignedTypes",
+                    "kotlin.experimental.ExperimentalTypeInference",
+                    "kotlin.uuid.ExperimentalUuidApi",
+                    "kotlin.contracts.ExperimentalContracts",
+                  )
+                }
+              }
+            }
 
             compilerOptions {
               apiVersion.set(KotlinVersion.KOTLIN_2_3)
@@ -220,7 +243,7 @@ internal sealed class KmpPlugin(
               sourceSets.apply {
                 findLibrary("androidx.ui.tooling").ifPresent {
                   androidMain.dependencies {
-                    implementation(it.get())
+                    implementation(it)
                   }
                   // project.dependencies.addProvider("debugImplementation", it)
                 }
@@ -228,14 +251,16 @@ internal sealed class KmpPlugin(
             }
           }
 
-          project.configureAndroidCommonExtension {
-            finalizeDsl { dsl ->
-              dsl.namespace = kmpPluginTarget.calculateNamespace(project = project)
+          if (kmpPluginTarget != KmpPluginTarget.APP) {
+            project.configureAndroidCommonExtension {
+              finalizeDsl { dsl ->
+                dsl.namespace = kmpPluginTarget.calculateNamespace(project = project)
 
-              project.versionCatalog().run {
-                findVersion("android.sdk.compile").ifPresent {
-                  dsl.compileSdk {
-                    version = release(it.requiredVersion.toInt())
+                project.versionCatalog().run {
+                  findVersion("android.sdk.compile").ifPresent {
+                    dsl.compileSdk {
+                      version = release(it.requiredVersion.toInt())
+                    }
                   }
                 }
               }
