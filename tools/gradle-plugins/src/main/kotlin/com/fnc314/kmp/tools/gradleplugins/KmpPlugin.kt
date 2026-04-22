@@ -162,8 +162,10 @@ internal sealed class KmpPlugin(
 
         project.logger.error(
           """
-          | Project ${project.name} Plugin ${project.plugins.joinToString(", ")}
-          | KMP PLUGIN TARGET $kmpPluginTarget
+          | Project ${project.name}
+          | Path ${project.path}
+          | Plugin ${project.plugins.joinToString(", ")}
+          | KMP plugin target $kmpPluginTarget
           | Extensions ${
             project.extensions.extensionsSchema.joinToString(", ") { it.name }
           }
@@ -195,7 +197,7 @@ internal sealed class KmpPlugin(
 
           project.kotlinMultiplatformConfiguration {
 
-            if (kmpPluginTarget == KmpPluginTarget.APP) {
+            if (kmpPluginTarget in listOf(KmpPluginTarget.APP_ANDROID)) {
               androidTarget {
                 @OptIn(ExperimentalKotlinGradlePluginApi::class)
                 compilerOptions {
@@ -251,7 +253,7 @@ internal sealed class KmpPlugin(
             }
           }
 
-          if (kmpPluginTarget != KmpPluginTarget.APP) {
+          if (kmpPluginTarget !in listOf(KmpPluginTarget.APP_ANDROID, KmpPluginTarget.APP_COMPOSE)) {
             project.configureAndroidCommonExtension {
               finalizeDsl { dsl ->
                 dsl.namespace = kmpPluginTarget.calculateNamespace(project = project)
@@ -272,7 +274,7 @@ internal sealed class KmpPlugin(
             findBundle("kotlin.libs").ifPresent { bundle ->
                 bundle.orNull?.onEach {
                     project.dependencies.addProvider(
-                      if (kmpPluginTarget == KmpPluginTarget.APP) { "implementation" } else { "commonMainImplementation" },
+                      if (kmpPluginTarget in listOf(KmpPluginTarget.APP_ANDROID)) { "implementation" } else { "commonMainImplementation" },
                       project.provider { it }
                     )
                 }

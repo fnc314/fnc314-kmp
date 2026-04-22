@@ -29,25 +29,29 @@ internal fun Project.applyKotlinComposeAndroidPlugins(
             .filter {
                 when (it) {
                     VersionCatalogPlugins.BUILD_KONFIG ->
-                        kmpPluginTarget != KmpPluginTarget.APP || project.name == "compose"
+                        kmpPluginTarget == KmpPluginTarget.APP_COMPOSE
 
                     VersionCatalogPlugins.ANDROID_APPLICATION,
                     VersionCatalogPlugins.COMPOSE_HOT_RELOAD, ->
-                        kmpPluginTarget == KmpPluginTarget.APP
+                        kmpPluginTarget == KmpPluginTarget.APP_ANDROID
 
-                    VersionCatalogPlugins.KOTLIN_MULTIPLATFORM ->
-                        kmpPluginTarget != KmpPluginTarget.APP || project.name == "compose"
-
+                    VersionCatalogPlugins.KOTLIN_ANDROID,
                     VersionCatalogPlugins.ANDROID_LIBRARY -> false
 
+                    VersionCatalogPlugins.KOTLIN_MULTIPLATFORM,
                     VersionCatalogPlugins.ANDROID_LIBRARY_MULTIPLATFORM ->
-                        kmpPluginTarget != KmpPluginTarget.APP
+                        kmpPluginTarget in listOf(
+                          KmpPluginTarget.APP_COMPOSE,
+                          KmpPluginTarget.COMPONENT,
+                          KmpPluginTarget.DESIGN_SYSTEM,
+                          KmpPluginTarget.FEATURE,
+                        )
 
                     else -> true
                 }
             }
             .onEach { catalogPlugin ->
-                logger.error("$name $catalogPlugin")
+                logger.error("${this@applyKotlinComposeAndroidPlugins.path} $catalogPlugin")
                 findPlugin(catalogPlugin.alias).ifPresent {
                     pluginManager.apply(it.get().pluginId)
                 }
@@ -62,6 +66,7 @@ internal fun Project.applyKotlinComposeAndroidPlugins(
 internal enum class VersionCatalogPlugins(
     val alias: String
 ) {
+    KOTLIN_ANDROID("kotlinAndroid"),
     KOTLIN_MULTIPLATFORM("kotlinMultiplatform"),
     ANDROID_APPLICATION("androidApplication"),
     ANDROID_LIBRARY("androidLibrary"),
@@ -80,6 +85,8 @@ internal enum class VersionCatalogPlugins(
 internal enum class KmpPluginTarget {
     AGGREGATE,
     APP,
+    APP_ANDROID,
+    APP_COMPOSE,
     COMPONENT,
     DESIGN_SYSTEM,
     FEATURE,

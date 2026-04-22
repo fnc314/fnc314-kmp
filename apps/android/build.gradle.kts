@@ -1,14 +1,16 @@
 plugins {
-  alias(libs.plugins.tools.gradle.plugins.kmp.app)
+  alias(libs.plugins.tools.gradle.plugins.kmp.android.app)
 }
 
-android {
-  namespace = "com.fnc314.kmp.app.android"
+androidComponents {
+  finalizeDsl { dsl ->
+    dsl.namespace = "com.fnc314.kmp.app.android"
 
-  defaultConfig {
-    applicationId = "com.fnc314.kmp.app.compose.android"
-    versionCode = 1
-    versionName = "1.0"
+    dsl.defaultConfig {
+      applicationId = "com.fnc314.kmp.app.compose.android"
+      versionCode = 1
+      versionName = "1.0"
+    }
   }
 }
 

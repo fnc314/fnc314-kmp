@@ -4,7 +4,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
-    alias(libs.plugins.tools.gradle.plugins.kmp.app)
+    alias(libs.plugins.tools.gradle.plugins.kmp.compose.app)
 }
 
 kotlin {
@@ -25,35 +25,23 @@ kotlin {
             }
         }
     }
-}
 
-androidComponents {
-  finalizeDsl { dsl ->
-    dsl.namespace = "com.fnc314.kmp.app.compose"
+    android {
+        namespace = "com.fnc314.kmp.app.compose"
+        minSdk = libs.versions.android.sdk.min.map { it.toInt() }.get()
 
-    dsl.defaultConfig {
-      applicationId = "com.fnc314.kmp.app.compose.android"
-      versionCode = 1
-      versionName = "1.0"
+        enableCoreLibraryDesugaring = true
+
+        compileSdk {
+          version = release(libs.versions.android.sdk.compile.map { it.toInt() }.get())
+        }
+
+        packaging {
+          resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+          }
+        }
     }
-
-    dsl.packaging {
-      resources {
-        excludes += "/META-INF/{AL2.0,LGPL2.1}"
-      }
-    }
-
-    dsl.buildTypes {
-      getByName("release") {
-        isMinifyEnabled = false
-      }
-    }
-
-    dsl.dependenciesInfo {
-      includeInApk = false
-      includeInBundle = false
-    }
-  }
 }
 
 compose.desktop {
@@ -66,4 +54,8 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+dependencies {
+  coreLibraryDesugaring(libs.android.tools.core.library.desugaring)
 }
