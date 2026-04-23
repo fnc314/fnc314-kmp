@@ -18,15 +18,21 @@ internal fun Project.versionCatalog(name: String = "libs"): VersionCatalog =
         .getByType(VersionCatalogsExtension::class.java)
         .named(name)
 
+/**
+ * Determines the appropriate [KotlinVersion] based on this [Project.versionCatalog]
+ *   defaulting to [embeddedKotlinVersion]
+ * @receiver A [Project] instance
+ * @return The desired [KotlinVersion]
+ */
 internal val Project.kotlinVersion: KotlinVersion
   get() = versionCatalog("libs")
-    .findVersion("kotlin")
-    .map {
-      KotlinVersion.fromVersion(it.requiredVersion.substringBeforeLast("."))
-    }
-    .getOrElse {
-      KotlinVersion.fromVersion(embeddedKotlinVersion.substringBeforeLast("."))
-    }
+      .findVersion("kotlin")
+      .map {
+          KotlinVersion.fromVersion(it.requiredVersion.substringBeforeLast("."))
+      }
+      .getOrElse {
+          KotlinVersion.fromVersion(embeddedKotlinVersion.substringBeforeLast("."))
+      }
 
 /**
  * Applies the set of [VersionCatalogPlugins] from the [VersionCatalog] to the
