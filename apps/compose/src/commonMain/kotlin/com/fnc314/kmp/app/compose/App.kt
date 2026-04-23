@@ -21,12 +21,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import com.fnc314.kmp.compose.generated.resources.Res
 import com.fnc314.kmp.compose.generated.resources.compose_multiplatform
 import com.fnc314.kmp.features.posts.list.PostsListScreen
 import com.fnc314.kmp.features.posts.list.PostsListViewModel
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 import kotlin.time.ExperimentalTime
 

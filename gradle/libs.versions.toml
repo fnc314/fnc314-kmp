@@ -50,6 +50,7 @@
   compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "composeMultiplatformGradlePlugin" }
   compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatformGradlePlugin" }
   compose-ui-util = { module = "org.jetbrains.compose.ui:ui-util", version.ref = "composeMultiplatformGradlePlugin" }
+  compose-ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "composeMultiplatformGradlePlugin"}
   koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
   koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
   koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
@@ -132,7 +133,7 @@
     "compose-foundation",
     "compose-material", "compose-material-extended-icons", "compose-material3",
     "compose-runtime",
-    "compose-ui", "compose-ui-util",
+    "compose-ui", "compose-ui-util", "compose-ui-tooling",
   ]
   koin = [
     "koin-core",
