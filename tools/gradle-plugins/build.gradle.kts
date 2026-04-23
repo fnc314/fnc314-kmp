@@ -48,4 +48,5 @@ dependencies {
     implementation(libs.bundles.agp)
     implementation(libs.kotlin.stdlib)
     implementation(libs.bundles.build.konfig)
+    implementation(libs.bundles.agp.lint)
 }

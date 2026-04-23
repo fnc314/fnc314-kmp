@@ -1,6 +1,8 @@
 pluginManagement {
     includeBuild("tools")
 
+    val kotlinVersion = "2.3.20"
+
     plugins {
         id("com.android.settings") version("9.2.0")
         id("com.android.library") version("9.2.0")
@@ -10,17 +12,17 @@ pluginManagement {
         id("org.gradle.toolchains.foojay-resolver-convention") version("1.0.0")
         id("org.jetbrains.compose.hot-reload") version("1.0.0")
         id("org.jetbrains.compose") version("1.10.3")
-        id("org.jetbrains.kotlin.android") version(embeddedKotlinVersion)
-        id("org.jetbrains.kotlin.jvm") version(embeddedKotlinVersion)
-        id("org.jetbrains.kotlin.multiplatform") version(embeddedKotlinVersion)
-        id("org.jetbrains.kotlin.plugin.compose") version(embeddedKotlinVersion)
-        id("org.jetbrains.kotlin.plugin.serialization") version(embeddedKotlinVersion)
+        id("org.jetbrains.kotlin.android") version(kotlinVersion)
+        id("org.jetbrains.kotlin.jvm") version(kotlinVersion)
+        id("org.jetbrains.kotlin.multiplatform") version(kotlinVersion)
+        id("org.jetbrains.kotlin.plugin.compose") version(kotlinVersion)
+        id("org.jetbrains.kotlin.plugin.serialization") version(kotlinVersion)
     }
 
     resolutionStrategy {
         eachPlugin {
             when {
-                requested.id.namespace?.startsWith("org.jetbrains.kotlin") == true -> useVersion(embeddedKotlinVersion)
+                requested.id.namespace?.startsWith("org.jetbrains.kotlin") == true -> useVersion(kotlinVersion)
                 requested.id.id.startsWith("com.android") -> useVersion("9.2.0")
                 else -> useVersion(requested.version)
             }
@@ -36,6 +38,9 @@ plugins {
 
 android {
     compileSdk = 37
+    targetSdk {
+      version = release(37)
+    }
     minSdk = 24
     buildToolsVersion = "37.0.0"
 }
