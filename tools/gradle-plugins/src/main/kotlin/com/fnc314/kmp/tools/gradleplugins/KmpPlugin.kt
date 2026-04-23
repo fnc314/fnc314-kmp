@@ -9,33 +9,45 @@ import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinCommonCompilerOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import java.util.Properties
 
 internal sealed class KmpPlugin(
     protected val kmpPluginTarget: KmpPluginTarget,
 ): Plugin<Project> {
+
+    /**
+     * Modifies receiving [KotlinCommonCompilerOptions] to universally set
+     *   values to [Project.kotlinVersion] and the same set of opt-ins
+     * @receiver A [KotlinCommonCompilerOptions] instance
+     * @param project A [Project] instance
+     */
+    protected fun KotlinCommonCompilerOptions.configureFor(project: Project) {
+        apiVersion.set(project.kotlinVersion)
+        languageVersion.set(project.kotlinVersion)
+        optIn.addAll(
+          "kotlin.time.ExperimentalTime",
+          "kotlin.ExperimentalStdlibApi",
+          "kotlin.ExperimentalMultiplatform",
+          "kotlin.ExperimentalUnsignedTypes",
+          "kotlin.experimental.ExperimentalTypeInference",
+          "kotlin.uuid.ExperimentalUuidApi",
+          "kotlin.contracts.ExperimentalContracts",
+        )
+    }
     /**
      * Applies necessary configurations to [KotlinMultiplatformExtension.androidTarget]
      * @receiver A [KotlinMultiplatformExtension] instance
      */
-    protected fun KotlinMultiplatformExtension.prepareAndroidTarget() {
+    protected fun KotlinMultiplatformExtension.prepareAndroidTarget(
+      project: Project
+    ) {
         androidTarget {
             @OptIn(ExperimentalKotlinGradlePluginApi::class)
             compilerOptions {
                 jvmTarget.set(JvmTarget.JVM_17)
-                apiVersion.set(KotlinVersion.KOTLIN_2_3)
-                languageVersion.set(KotlinVersion.KOTLIN_2_3)
-                optIn.addAll(
-                    "kotlin.time.ExperimentalTime",
-                    "kotlin.ExperimentalStdlibApi",
-                    "kotlin.ExperimentalMultiplatform",
-                    "kotlin.ExperimentalUnsignedTypes",
-                    "kotlin.experimental.ExperimentalTypeInference",
-                    "kotlin.uuid.ExperimentalUuidApi",
-                    "kotlin.contracts.ExperimentalContracts",
-                )
+                configureFor(project = project)
             }
         }
     }
@@ -198,37 +210,11 @@ internal sealed class KmpPlugin(
           project.kotlinMultiplatformConfiguration {
 
             if (kmpPluginTarget in listOf(KmpPluginTarget.APP_ANDROID)) {
-              androidTarget {
-                @OptIn(ExperimentalKotlinGradlePluginApi::class)
-                compilerOptions {
-                  jvmTarget.set(JvmTarget.JVM_17)
-                  apiVersion.set(KotlinVersion.KOTLIN_2_3)
-                  languageVersion.set(KotlinVersion.KOTLIN_2_3)
-                  optIn.addAll(
-                    "kotlin.time.ExperimentalTime",
-                    "kotlin.ExperimentalStdlibApi",
-                    "kotlin.ExperimentalMultiplatform",
-                    "kotlin.ExperimentalUnsignedTypes",
-                    "kotlin.experimental.ExperimentalTypeInference",
-                    "kotlin.uuid.ExperimentalUuidApi",
-                    "kotlin.contracts.ExperimentalContracts",
-                  )
-                }
-              }
+              prepareAndroidTarget(project = project)
             }
 
             compilerOptions {
-              apiVersion.set(KotlinVersion.KOTLIN_2_3)
-              languageVersion.set(KotlinVersion.KOTLIN_2_3)
-              optIn.addAll(
-                "kotlin.time.ExperimentalTime",
-                "kotlin.ExperimentalStdlibApi",
-                "kotlin.ExperimentalMultiplatform",
-                "kotlin.ExperimentalUnsignedTypes",
-                "kotlin.experimental.ExperimentalTypeInference",
-                "kotlin.uuid.ExperimentalUuidApi",
-                "kotlin.contracts.ExperimentalContracts",
-              )
+              configureFor(project = project)
             }
 
             prepareIOSTargets(

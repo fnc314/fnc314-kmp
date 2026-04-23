@@ -1,7 +1,7 @@
 pluginManagement {
     plugins {
-        id("org.jetbrains.kotlin.jvm") version("2.3.20")
-        id("com.fnc314.gradle.plugins.settings.project-collections-gradle-settings-plugin") version("3.0.0")
+        id("org.jetbrains.kotlin.jvm") version("2.3.21")
+        id("com.fnc314.gradle.plugins.settings.project-collections-gradle-settings-plugin") version("3.0.2")
     }
 }
 

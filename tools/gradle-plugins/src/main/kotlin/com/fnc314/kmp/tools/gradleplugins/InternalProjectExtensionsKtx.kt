@@ -3,6 +3,9 @@ package com.fnc314.kmp.tools.gradleplugins
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.kotlin.dsl.embeddedKotlinVersion
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+import kotlin.jvm.optionals.getOrElse
 
 /**
  * Finds the [VersionCatalog] with the provided [name], defaulting to `"libs"`
@@ -14,6 +17,16 @@ internal fun Project.versionCatalog(name: String = "libs"): VersionCatalog =
     extensions
         .getByType(VersionCatalogsExtension::class.java)
         .named(name)
+
+internal val Project.kotlinVersion: KotlinVersion
+  get() = versionCatalog("libs")
+    .findVersion("kotlin")
+    .map {
+      KotlinVersion.fromVersion(it.requiredVersion.substringBeforeLast("."))
+    }
+    .getOrElse {
+      KotlinVersion.fromVersion(embeddedKotlinVersion.substringBeforeLast("."))
+    }
 
 /**
  * Applies the set of [VersionCatalogPlugins] from the [VersionCatalog] to the

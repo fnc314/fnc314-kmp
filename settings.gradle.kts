@@ -1,14 +1,14 @@
 pluginManagement {
     includeBuild("tools")
 
-    val kotlinVersion = "2.3.20"
+    val kotlinVersion = "2.3.21"
 
     plugins {
         id("com.android.settings") version("9.2.0")
         id("com.android.library") version("9.2.0")
         id("com.android.application") version("9.2.0")
         id("com.android.kotlin.multiplatform.library") version("9.2.0")
-        id("com.fnc314.gradle.plugins.settings.project-collections-gradle-settings-plugin") version("3.0.0")
+        id("com.fnc314.gradle.plugins.settings.project-collections-gradle-settings-plugin") version("3.0.2")
         id("org.gradle.toolchains.foojay-resolver-convention") version("1.0.0")
         id("org.jetbrains.compose.hot-reload") version("1.0.0")
         id("org.jetbrains.compose") version("1.10.3")
@@ -31,7 +31,7 @@ pluginManagement {
 }
 
 plugins {
-    id("com.fnc314.gradle.plugins.settings.project-collections-gradle-settings-plugin") version("3.0.0")
+    id("com.fnc314.gradle.plugins.settings.project-collections-gradle-settings-plugin") version("3.0.2")
     id("org.gradle.toolchains.foojay-resolver-convention") version("0.8.0")
     id("com.android.settings") version("9.2.0")
 }

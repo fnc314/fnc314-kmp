@@ -1,10 +1,30 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+
 plugins {
     `java-gradle-plugin`
     alias(libs.plugins.kotlinJvm)
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(
+      libs.versions.jdk.map { it.toInt() }.get()
+    )
+    compilerOptions {
+        val kotlinVersion = libs.versions.kotlin.map {
+          KotlinVersion.fromVersion(it.replace("""(\d+\.\d+)\.\d+""".toRegex(), "$1"))
+        }
+        languageVersion.set(kotlinVersion)
+        apiVersion.set(kotlinVersion)
+        optIn.addAll(
+          "kotlin.time.ExperimentalTime",
+          "kotlin.ExperimentalStdlibApi",
+          "kotlin.ExperimentalMultiplatform",
+          "kotlin.ExperimentalUnsignedTypes",
+          "kotlin.experimental.ExperimentalTypeInference",
+          "kotlin.uuid.ExperimentalUuidApi",
+          "kotlin.contracts.ExperimentalContracts",
+        )
+    }
 }
 
 gradlePlugin {
