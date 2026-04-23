@@ -30,7 +30,7 @@ gradlePlugin {
         create("kmp-compose-app-plugin") {
             id = libs.plugins.tools.gradle.plugins.kmp.compose.app.get().pluginId
             implementationClass = "com.fnc314.kmp.tools.gradleplugins.KmpAppComposePlugin"
-            displayName = "fnc314 KMP App Plugin"
+            displayName = "fnc314 KMP Compose App Plugin"
             description = "Plugin to unify shared configurations across 'App' modules"
         }
         create("kmp-android-app-plugin") {
@@ -44,9 +44,9 @@ gradlePlugin {
 
 dependencies {
     compileOnly(gradleKotlinDsl())
-    implementation(libs.bundles.kotlin.gradle.plugin)
-    implementation(libs.bundles.agp)
+    compileOnly(libs.bundles.kotlin.gradle.plugin)
+    compileOnly(libs.bundles.agp)
     implementation(libs.kotlin.stdlib)
-    implementation(libs.bundles.build.konfig)
-    implementation(libs.bundles.agp.lint)
+    compileOnly(libs.bundles.build.konfig)
+    compileOnly(libs.bundles.agp.lint)
 }

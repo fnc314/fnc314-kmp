@@ -1,0 +1,127 @@
+{
+  "$schema": "http://json-schema.org",
+  "type": "object",
+  "properties": {
+    "versions": {
+      "type": "object",
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "strictly": {
+                "type": "string"
+              },
+              "prefer": {
+                "type": "string"
+              },
+              "reject": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "rejectAll": {
+                "type": "boolean"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "libraries": {
+      "type": "object",
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "object",
+            "required": [
+              "module"
+            ],
+            "properties": {
+              "module": {
+                "type": "string"
+              },
+              "version": {
+                "$ref": "#/definitions/versionRef"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "group",
+              "name"
+            ],
+            "properties": {
+              "group": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "version": {
+                "$ref": "#/definitions/versionRef"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "bundles": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "plugins": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "$ref": "#/definitions/versionRef"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "versionRef": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "ref": {
+              "type": "string"
+            },
+            "strictly": {
+              "type": "string"
+            },
+            "prefer": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
