@@ -28,9 +28,8 @@ kotlin {
 
     android {
         namespace = "com.fnc314.kmp.app.compose"
-        minSdk = libs.versions.android.sdk.min.map { it.toInt() }.get()
-
         enableCoreLibraryDesugaring = true
+        minSdk = libs.versions.android.sdk.min.map { it.toInt() }.get()
 
         compileSdk {
           version = release(libs.versions.android.sdk.compile.map { it.toInt() }.get())
@@ -40,6 +39,11 @@ kotlin {
           resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
           }
+        }
+
+        aarMetadata {
+          minCompileSdk = libs.versions.android.sdk.min.map { it.toInt() }.get()
+          minAgpVersion = libs.versions.agp.asProvider().get()
         }
     }
 }

@@ -18,7 +18,7 @@
   androidx-compose = "1.10.4"
   androidx-compose-material3 = "1.4.0"
   androidx-compose-material3-adaptive = "1.2.0"
-  androidx-ui-tooling = "1.10.6"
+  androidx-ui-tooling = "1.11.0"
   jetbrains-material3-compose = "1.9.0"
   composeHotReload = "1.0.0"
   composeMultiplatformGradlePlugin = "1.10.3"
@@ -40,7 +40,7 @@
   agp-api = { module = "com.android.tools.build:gradle-api", version.ref = "agp" }
   agp-lint = { module = "com.android.tools.build:gradle-lint-api", version.ref = "agp-lint" }
   agp-settings-api = { module = "com.android.tools.build:gradle-settings-api", version.ref = "agp" }
-  android-tools-core-library-desugaring = { module = "com.android.tools:desugar_jdk_libs_configuration", version.ref = "android-core-library-desugaring" }
+  android-tools-core-library-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-core-library-desugaring" }
   compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "composeMultiplatformGradlePlugin" }
   compose-components-ui-tooling-preview = { module = "org.jetbrains.compose.components:components-ui-tooling-preview", version.ref = "composeMultiplatformGradlePlugin" }
   compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "composeMultiplatformGradlePlugin" }
