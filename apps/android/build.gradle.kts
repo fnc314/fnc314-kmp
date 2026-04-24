@@ -6,6 +6,10 @@ androidComponents {
   finalizeDsl { dsl ->
     dsl.namespace = "com.fnc314.kmp.app.android"
     dsl.enableKotlin = true
+    dsl.buildFeatures {
+      compose = true
+      resValues = true
+    }
     dsl.dependenciesInfo {
       includeInApk = false
       includeInBundle = false
@@ -21,10 +25,10 @@ androidComponents {
       versionCode = 1
       versionName = "1.0"
     }
-
-
     dsl.compileOptions {
       isCoreLibraryDesugaringEnabled = true
+      sourceCompatibility(JavaVersion.VERSION_17)
+      targetCompatibility(JavaVersion.VERSION_17)
     }
   }
 }

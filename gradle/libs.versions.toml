@@ -20,6 +20,7 @@
   androidx-compose-material3-adaptive = "1.2.0"
   androidx-navigation = "1.1.1"
   androidx-ui-tooling = "1.11.0"
+  build-tools = "37.0.0"
   jetbrains-material3-compose = "1.9.0"
   composeHotReload = "1.0.0"
   composeMultiplatformGradlePlugin = "1.10.3"
