@@ -18,6 +18,7 @@
   androidx-compose = "1.10.4"
   androidx-compose-material3 = "1.4.0"
   androidx-compose-material3-adaptive = "1.2.0"
+  androidx-navigation = "1.1.1"
   androidx-ui-tooling = "1.11.0"
   jetbrains-material3-compose = "1.9.0"
   composeHotReload = "1.0.0"
@@ -83,6 +84,7 @@
   # Ktor Client - Core
   ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
   # Ktor Client Engines (add the ones you need for your targets)
+  ktor-client-bom = { module = "io.ktor:ktor-bom", version.ref = "ktor" }
   ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" } # For JVM, Android
   ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" } # For iOS, macOS, watchOS, tvOS
   ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" } # For Javascript (Browser and Node.js)
@@ -100,6 +102,7 @@
   androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
   androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
   androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
+  androidx-lifecycle-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "androidx-lifecycle" }
   androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
   androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
   androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "androidx-compose-material3" }
@@ -107,6 +110,8 @@
   androidx-compose-material3-adaptive = { module = "androidx.compose.material3.adaptive:adaptive", version.ref = "androidx-compose-material3-adaptive" }
   androidx-compose-material3-adaptive-layout = { module = "androidx.compose.material3.adaptive:adaptive-layout", version.ref = "androidx-compose-material3-adaptive" }
   androidx-compose-material3-adaptive-navigation = { module = "androidx.compose.material3.adaptive:adaptive-navigation", version.ref = "androidx-compose-material3-adaptive" }
+  androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "androidx-navigation" }
+  androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "androidx-navigation" }
   kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
   kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
   androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-ui-tooling" }
@@ -131,6 +136,11 @@
     "androidx-compose-material3-adaptive",
     "androidx-compose-material3-adaptive-layout",
     "androidx-compose-material3-adaptive-navigation",
+  ]
+  androidx-navigation3 = [
+    "androidx-navigation3-runtime",
+    "androidx-navigation3-ui",
+    "androidx-lifecycle-navigation3",
   ]
   build-konfig = [
     "build-konfig", "build-konfig-compiler"
@@ -182,8 +192,8 @@
   kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
   kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
   kotzilla = { id = "io.kotzilla.kotzilla-plugin", version.ref = "kotzilla" }
-  tools-gradle-plugins-kmp-android-app = { id = "com.fnc314.kmp.tools.gradle.plugin.app.android" }
-  tools-gradle-plugins-kmp-compose-app = { id = "com.fnc314.kmp.tools.gradle.plugin.app.compose" }
+  tools-gradle-plugins-kmp-app-android = { id = "com.fnc314.kmp.tools.gradle.plugin.app.android" }
+  tools-gradle-plugins-kmp-app-compose = { id = "com.fnc314.kmp.tools.gradle.plugin.app.compose" }
   tools-gradle-plugins-kmp-component = { id = "com.fnc314.kmp.tools.gradle.plugin.component" }
   tools-gradle-plugins-kmp-feature = { id = "com.fnc314.kmp.tools.gradle.plugin.feature" }
   tools-gradle-plugins-kmp-design-system = { id = "com.fnc314.kmp.tools.gradle.plugin.design-system" }

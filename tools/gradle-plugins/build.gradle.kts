@@ -48,13 +48,13 @@ gradlePlugin {
             description = "Plugin to unify shared configurations across 'Component' modules"
         }
         create("kmp-compose-app-plugin") {
-            id = libs.plugins.tools.gradle.plugins.kmp.compose.app.get().pluginId
+            id = libs.plugins.tools.gradle.plugins.kmp.app.compose.get().pluginId
             implementationClass = "com.fnc314.kmp.tools.gradleplugins.KmpAppComposePlugin"
             displayName = "fnc314 KMP Compose App Plugin"
             description = "Plugin to unify shared configurations across 'App' modules"
         }
         create("kmp-android-app-plugin") {
-          id = libs.plugins.tools.gradle.plugins.kmp.android.app.get().pluginId
+          id = libs.plugins.tools.gradle.plugins.kmp.app.android.get().pluginId
           implementationClass = "com.fnc314.kmp.tools.gradleplugins.KmpAppAndroidPlugin"
           displayName = "fnc314 KMP Android App Plugin"
           description = "Android App Plugin"

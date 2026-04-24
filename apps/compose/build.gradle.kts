@@ -4,7 +4,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
-    alias(libs.plugins.tools.gradle.plugins.kmp.compose.app)
+    alias(libs.plugins.tools.gradle.plugins.kmp.app.compose)
 }
 
 kotlin {

@@ -82,7 +82,16 @@ internal sealed class KmpPlugin(
         versionCatalog: VersionCatalog
     ) {
         versionCatalog.run {
+            sourceSets.androidMain.dependencies {
+                findBundle("androidx.navigation3")
+                    .ifPresent { bundle ->
+                        bundle.get().onEach {
+                            implementation(it)
+                        }
+                    }
+            }
             sourceSets.commonMain.dependencies {
+
                 findBundle("compose")
                     .ifPresent { bundle ->
                         bundle.get().onEach {
@@ -91,16 +100,20 @@ internal sealed class KmpPlugin(
                     }
                 findLibrary("kotlinx.serialization.json")
                     .ifPresent {
-                        implementation(it.get())
+                        implementation(it)
                     }
                 findLibrary("kotlin.stdlib")
                     .ifPresent {
-                        implementation(it.get())
+                        implementation(it)
                     }
-
+                findBundle("kotlin.libs").ifPresent { bundle ->
+                    bundle.get().onEach {
+                        implementation(it)
+                    }
+                }
                 findLibrary("koin.bom")
                     .ifPresent {
-                        project.dependencies.platform(it.get())
+                        project.dependencies.platform(it)
                     }
                 findBundle("koin")
                     .ifPresent { bundle ->
@@ -108,14 +121,13 @@ internal sealed class KmpPlugin(
                             implementation(it)
                         }
                     }
-                findBundle("kotlin.libs").ifPresent { bundle ->
-                    bundle.get().onEach {
-                        implementation(it)
+                findLibrary("ktor.bom")
+                    .ifPresent {
+                        project.dependencies.platform(it)
                     }
-                }
                 findLibrary("napier")
                     .ifPresent {
-                        implementation(it.get())
+                        implementation(it)
                     }
             }
         }
