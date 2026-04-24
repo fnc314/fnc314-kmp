@@ -1,11 +1,11 @@
 plugins {
-    alias(libs.plugins.tools.gradle.plugins.kmp.feature)
+  alias(libs.plugins.tools.gradle.plugins.kmp.feature)
 }
 
 kotlin {
-    sourceSets {
-        commonMain.dependencies {
-            implementation(projects.designSystem.widgets)
-        }
+  sourceSets {
+    commonMain.dependencies {
+      implementation(projects.designSystem.widgets)
     }
+  }
 }

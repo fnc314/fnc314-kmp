@@ -8,18 +8,18 @@ import org.gradle.kotlin.dsl.dependencies
  *   "app" produced by the repository
  */
 internal class KmpAppAndroidPlugin : KmpPlugin(kmpPluginTarget = KmpPluginTarget.APP_ANDROID) {
-    override fun Project.afterPluginApplication() {
-        versionCatalog().run {
-            findPlugin("kotzilla")
-                .ifPresent {
-                    pluginManager.apply(it.get().pluginId)
-                }
-            dependencies {
-              findLibrary("kotzilla.sdk")
-                .ifPresent {
-                  addProvider("implementation", it)
-                }
-            }
+  override fun Project.afterPluginApplication() {
+    versionCatalog().run {
+      findPlugin("kotzilla")
+        .ifPresent {
+          pluginManager.apply(it.get().pluginId)
         }
+      dependencies {
+        findLibrary("kotzilla.sdk")
+          .ifPresent {
+            addProvider("implementation", it)
+          }
+      }
     }
+  }
 }

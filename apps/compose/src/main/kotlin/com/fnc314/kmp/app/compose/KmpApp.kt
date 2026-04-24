@@ -9,18 +9,18 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 class KmpApp : Application() {
-    override fun onCreate() {
-        super.onCreate()
-        Napier.base(antilog = DebugAntilog(defaultTag = "com.fnc314.kmp"))
-        startKoin {
-            androidContext(this@KmpApp)
-            analytics {
-                setApiKey(BuildKonfig.KOTZILLA_ANALYTICS_KEY)
-                setVersion("1.0.0")
-            }
-            modules(
-                postsListModule
-            )
-        }
+  override fun onCreate() {
+    super.onCreate()
+    Napier.base(antilog = DebugAntilog(defaultTag = "com.fnc314.kmp"))
+    startKoin {
+      androidContext(this@KmpApp)
+      analytics {
+        setApiKey(BuildKonfig.KOTZILLA_ANALYTICS_KEY)
+        setVersion("1.0.0")
+      }
+      modules(
+        postsListModule
+      )
     }
+  }
 }

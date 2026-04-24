@@ -1,3 +1,3 @@
 plugins {
-    alias(libs.plugins.tools.gradle.plugins.kmp.design.system)
+  alias(libs.plugins.tools.gradle.plugins.kmp.design.system)
 }

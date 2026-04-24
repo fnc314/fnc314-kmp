@@ -7,12 +7,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.Text
 
 class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge()
-        super.onCreate(savedInstanceState)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    enableEdgeToEdge()
+    super.onCreate(savedInstanceState)
 
-        setContent {
-            Text("App")
-        }
+    setContent {
+      Text("App")
     }
+  }
 }

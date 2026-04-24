@@ -55,7 +55,7 @@
   compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "composeMultiplatformGradlePlugin" }
   compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatformGradlePlugin" }
   compose-ui-util = { module = "org.jetbrains.compose.ui:ui-util", version.ref = "composeMultiplatformGradlePlugin" }
-  compose-ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "composeMultiplatformGradlePlugin"}
+  compose-ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "composeMultiplatformGradlePlugin" }
   koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
   koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
   koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
@@ -86,16 +86,16 @@
   ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
   # Ktor Client Engines (add the ones you need for your targets)
   ktor-client-bom = { module = "io.ktor:ktor-bom", version.ref = "ktor" }
-  ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" } # For JVM, Android
-  ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" } # For iOS, macOS, watchOS, tvOS
-  ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" } # For Javascript (Browser and Node.js)
+  ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }                                                                                            # For JVM, Android
+  ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }                                                                                            # For iOS, macOS, watchOS, tvOS
+  ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" }                                                                                            # For Javascript (Browser and Node.js)
   # ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" } # Alternative for Android/JVM
   # ktor-client-java = { module = "io.ktor:ktor-client-java", version.ref = "ktor" } # Alternative for JVM
   # Ktor Client Content Negotiation & Serialization
   ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
   ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
   kotzilla-sdk = { group = "io.kotzilla", name = "kotzilla-sdk", version.ref = "kotzilla" }
-  kotzilla-sdk-ktor3 = {group = "io.kotzilla", name = "kotzilla-sdk-ktor3", version.ref = "kotzilla" }
+  kotzilla-sdk-ktor3 = { group = "io.kotzilla", name = "kotzilla-sdk-ktor3", version.ref = "kotzilla" }
   junit = { module = "junit:junit", version.ref = "junit" }
   androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
   androidx-testExt-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-testExt" }
@@ -122,9 +122,7 @@
   com-fnc314-gradle-plugins-settings-project-collections = { module = "com.fnc314.gradle.plugins.settings:project-collections-gradle-settings-plugin", version.ref = "com-fnc314-gradle-plugins-settings-project-collections" }
 
 [bundles]
-  agp = [
-    "agp", "agp-api"
-  ]
+  agp = [ "agp", "agp-api" ]
   agp-lint = [
     "agp-lint",
     "agp-lint-checks",
@@ -143,43 +141,46 @@
     "androidx-navigation3-ui",
     "androidx-lifecycle-navigation3",
   ]
-  build-konfig = [
-    "build-konfig", "build-konfig-compiler"
-  ]
+  build-konfig = [ "build-konfig", "build-konfig-compiler" ]
   compose = [
-    "compose-components-resources", "compose-components-ui-tooling-preview",
+    "compose-components-resources",
+    "compose-components-ui-tooling-preview",
     "compose-foundation",
-    "compose-material", "compose-material-extended-icons", "compose-material3",
+    "compose-material",
+    "compose-material-extended-icons",
+    "compose-material3",
     "compose-runtime",
-    "compose-ui", "compose-ui-util", "compose-ui-tooling",
+    "compose-ui",
+    "compose-ui-util",
+    "compose-ui-tooling",
   ]
   koin = [
     "koin-core",
-    "koin-compose", "koin-compose-viewmodel", "koin-compose-viewmodel-navigation",
+    "koin-compose",
+    "koin-compose-viewmodel",
+    "koin-compose-viewmodel-navigation",
   ]
   ktor-client-jvm = [
     "ktor-client-core",
-    "ktor-client-cio", # For JVM, Android
+    "ktor-client-cio",                                        # For JVM, Android
     "ktor-client-content-negotiation",
     "ktor-serialization-kotlinx-json",
   ]
   ktor-client-ios = [
     "ktor-client-core",
-    "ktor-client-darwin", # For iOS, macOS, watchOS, tvOS
+    "ktor-client-darwin",                                     # For iOS, macOS, watchOS, tvOS
     "ktor-client-content-negotiation",
   ]
   ktor-client-web = [
     "ktor-client-core",
-    "ktor-client-js", # For JavaScript (Browser and Node.js)
+    "ktor-client-js",                                         # For JavaScript (Browser and Node.js)
     "ktor-client-content-negotiation"
   ]
   kotlin-gradle-plugin = [
     "kotlin-gradle-plugin",
     "kotlin-gradle-plugin-api",
   ]
-  kotlin-libs = [
-    "kotlin-stdlib", "kotlin-reflect"
-  ]
+  kotlin-libs = [ "kotlin-stdlib", "kotlin-reflect" ]
 
 [plugins]
   androidApplication = { id = "com.android.application", version.ref = "agp" }

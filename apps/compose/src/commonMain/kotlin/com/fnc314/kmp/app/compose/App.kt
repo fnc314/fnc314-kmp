@@ -33,42 +33,42 @@ import kotlin.time.ExperimentalTime
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
-        var showContent by remember { mutableStateOf(true) }
-        val postsListViewModel = koinViewModel<PostsListViewModel>()
-        Column(
-            modifier = Modifier
-                .safeContentPadding()
-                .statusBarsPadding()
-                .systemBarsPadding()
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceEvenly
-        ) {
-            Button(
-                onClick = { showContent = !showContent }
-            ) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(
-                visible = showContent
-            ) {
-                val greeting = remember { Greeting().greet() }
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
-                }
-            }
-            AnimatedVisibility(
-                visible = !showContent,
-                modifier = Modifier.fillMaxHeight()
-            ) {
-                PostsListScreen(
-                    modifier = Modifier
-                        .fillMaxHeight(),
-                    postsListViewModel = postsListViewModel
-                )
-            }
+  MaterialTheme {
+    var showContent by remember { mutableStateOf(true) }
+    val postsListViewModel = koinViewModel<PostsListViewModel>()
+    Column(
+      modifier = Modifier
+        .safeContentPadding()
+        .statusBarsPadding()
+        .systemBarsPadding()
+        .fillMaxWidth(),
+      horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = Arrangement.SpaceEvenly
+    ) {
+      Button(
+        onClick = { showContent = !showContent }
+      ) {
+        Text("Click me!")
+      }
+      AnimatedVisibility(
+        visible = showContent
+      ) {
+        val greeting = remember { Greeting().greet() }
+        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+          Image(painterResource(Res.drawable.compose_multiplatform), null)
+          Text("Compose: $greeting")
         }
+      }
+      AnimatedVisibility(
+        visible = !showContent,
+        modifier = Modifier.fillMaxHeight()
+      ) {
+        PostsListScreen(
+          modifier = Modifier
+            .fillMaxHeight(),
+          postsListViewModel = postsListViewModel
+        )
+      }
     }
+  }
 }
