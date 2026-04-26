@@ -19,6 +19,8 @@
   androidx-compose-material3 = "1.4.0"
   androidx-compose-material3-adaptive = "1.2.0"
   androidx-navigation = "1.1.1"
+  androidx-navigationevent = "1.1.0"
+  androidx-startup = "1.2.0"
   androidx-ui-tooling = "1.11.0"
   build-tools = "37.0.0"
   jetbrains-material3-compose = "1.9.0"
@@ -113,6 +115,9 @@
   androidx-compose-material3-adaptive-navigation = { module = "androidx.compose.material3.adaptive:adaptive-navigation", version.ref = "androidx-compose-material3-adaptive" }
   androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "androidx-navigation" }
   androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "androidx-navigation" }
+  androidx-navigationevent = { module = "androidx.navigationevent:navigationevent", version.ref = "androidx-navigationevent" }
+  androidx-navigationevent-compose = { module = "androidx.navigationevent:navigationevent-compose", version.ref = "androidx-navigationevent" }
+  androidx-startup = { module = "androidx.startup:startup-runtime", version.ref = "androidx-startup" }
   kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
   kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
   androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-ui-tooling" }
@@ -140,6 +145,10 @@
     "androidx-navigation3-runtime",
     "androidx-navigation3-ui",
     "androidx-lifecycle-navigation3",
+  ]
+  androidx-navigationevent = [
+    "androidx-navigationevent",
+    "androidx-navigationevent-compose",
   ]
   build-konfig = [ "build-konfig", "build-konfig-compiler" ]
   compose = [
