@@ -203,6 +203,7 @@
   kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
   kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
   kotzilla = { id = "io.kotzilla.kotzilla-plugin", version.ref = "kotzilla" }
+  tools-gradle-configs-gradle-configs-settings = { id = "com.fnc314.kmp.tools.gradle.plugin.settings.gradle-configs" }
   tools-gradle-plugins-kmp-app-android = { id = "com.fnc314.kmp.tools.gradle.plugin.app.android" }
   tools-gradle-plugins-kmp-app-compose = { id = "com.fnc314.kmp.tools.gradle.plugin.app.compose" }
   tools-gradle-plugins-kmp-component = { id = "com.fnc314.kmp.tools.gradle.plugin.component" }

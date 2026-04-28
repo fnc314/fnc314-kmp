@@ -31,18 +31,19 @@ pluginManagement {
 }
 
 plugins {
+  id("com.fnc314.kmp.tools.gradle.plugin.settings.gradle-configs")
   id("com.fnc314.gradle.plugins.settings.project-collections-gradle-settings-plugin") version ("3.0.2")
   id("org.gradle.toolchains.foojay-resolver-convention") version ("1.0.0")
   id("com.android.settings") version ("9.2.0")
 }
 
 android {
-  compileSdk = 37
+  compileSdk = gradleConfigs.AndroidSdkCompile
   targetSdk {
-    version = release(37)
+    version = release(gradleConfigs.AndroidSdkTarget)
   }
-  minSdk = 24
-  buildToolsVersion = "37.0.0"
+  minSdk = gradleConfigs.AndroidSdkMin
+  buildToolsVersion = gradleConfigs.AndroidBuildTools
 }
 
 projectCollections {
