@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 plugins {
   `java-gradle-plugin`
   alias(libs.plugins.kotlinJvm)
+  alias(libs.plugins.dependency.conflict.analyzer) apply(false) // Remove `apply(false)` to see error from plugin
 }
 
 kotlin {

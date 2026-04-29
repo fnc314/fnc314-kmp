@@ -16,4 +16,5 @@ plugins {
   alias(libs.plugins.tools.gradle.plugins.kmp.design.system) apply (false)
   alias(libs.plugins.tools.gradle.plugins.kmp.feature) apply (false)
   alias(libs.plugins.build.konfig) apply (false)
+  alias(libs.plugins.dependency.conflict.analyzer) apply (false)
 }
