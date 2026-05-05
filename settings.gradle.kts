@@ -4,10 +4,10 @@ pluginManagement {
   val kotlinVersion = "2.3.21"
 
   plugins {
-    id("com.android.settings") version ("9.2.0")
-    id("com.android.library") version ("9.2.0")
-    id("com.android.application") version ("9.2.0")
-    id("com.android.kotlin.multiplatform.library") version ("9.2.0")
+    id("com.android.settings") version ("9.2.1")
+    id("com.android.library") version ("9.2.1")
+    id("com.android.application") version ("9.2.1")
+    id("com.android.kotlin.multiplatform.library") version ("9.2.1")
     id("com.fnc314.gradle.plugins.settings.project-collections-gradle-settings-plugin") version ("3.0.2")
     id("org.gradle.toolchains.foojay-resolver-convention") version ("1.0.0")
     id("org.jetbrains.compose.hot-reload") version ("1.0.0")
@@ -23,7 +23,7 @@ pluginManagement {
     eachPlugin {
       when {
         requested.id.namespace?.startsWith("org.jetbrains.kotlin") == true -> useVersion(kotlinVersion)
-        requested.id.id.startsWith("com.android") -> useVersion("9.2.0")
+        requested.id.id.startsWith("com.android") -> useVersion("9.2.1")
         else -> useVersion(requested.version)
       }
     }
@@ -34,7 +34,7 @@ plugins {
   id("com.fnc314.kmp.tools.gradle.plugin.settings.gradle-configs")
   id("com.fnc314.gradle.plugins.settings.project-collections-gradle-settings-plugin") version ("3.0.2")
   id("org.gradle.toolchains.foojay-resolver-convention") version ("1.0.0")
-  id("com.android.settings") version ("9.2.0")
+  id("com.android.settings") version ("9.2.1")
 }
 
 android {

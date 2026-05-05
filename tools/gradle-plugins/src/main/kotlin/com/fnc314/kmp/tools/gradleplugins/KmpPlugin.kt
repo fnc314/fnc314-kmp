@@ -200,8 +200,8 @@ internal sealed class KmpPlugin(
 
     if (kmpPluginTarget != KmpPluginTarget.AGGREGATE) {
       project.configureBuildKonfig {
-        exposeObjectWithName = "BuildKonfig"
-        packageName = kmpPluginTarget.calculateNamespace(project = project)
+        exposeObjectWithName.set("BuildKonfig")
+        packageName.set(kmpPluginTarget.calculateNamespace(project = project))
         defaultConfigs {
           project.rootDir
             .resolve("local.properties")
