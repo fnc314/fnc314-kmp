@@ -6,6 +6,16 @@ plugins {
   alias(libs.plugins.dependency.conflict.analyzer)
 }
 
+dependencyConflictAnalyzer {
+  failOnConflict = true
+  reportFile = rootProject
+    .layout
+    .projectDirectory
+    .file(
+      "../logs/dependency-conflict-analyzer/${rootProject.name}/${path.replace(":", "/")}/dependency-conflict-analyzer.md"
+    )
+}
+
 kotlin {
   jvmToolchain(
     libs.versions.jdk.map { it.toInt() }.get()

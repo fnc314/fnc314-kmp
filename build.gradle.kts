@@ -1,3 +1,5 @@
+import gradle.DependencyConflictAnalyzerExtension
+
 plugins {
   // this is necessary to avoid the plugins to be loaded multiple times
   // in each subproject's classloader
@@ -17,4 +19,31 @@ plugins {
   alias(libs.plugins.tools.gradle.plugins.kmp.feature) apply (false)
   alias(libs.plugins.build.konfig) apply (false)
   alias(libs.plugins.dependency.conflict.analyzer) apply (false)
+}
+
+subprojects {
+  plugins.apply(
+    rootProject.libs.plugins.dependency.conflict.analyzer.map { it.pluginId }.get()
+  )
+
+  extensions.configure<DependencyConflictAnalyzerExtension> {
+    failOnConflict = true
+    reportFile = rootProject
+      .layout
+      .projectDirectory
+      .file(
+        "logs/dependency-conflict-analyzer/${rootProject.name}/${this@subprojects.path.replace(":", "/")}/dependency-conflict-analyzer.md"
+      )
+  }
+}
+
+tasks {
+  val dependencies = subprojects.mapNotNull { p ->
+    p.tasks.named { it === "generateDependencyConflictReport" }
+  }
+
+  register("dependencyConflicts") {
+    group = "help"
+    dependsOn(dependencies)
+  }
 }
